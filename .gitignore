@@ -1,0 +1,15 @@
+# Byte-compiled / optimized / test caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+*.tmp
+
+# Intermediate build outputs
+build/
+
+# Scraped cache files
+data/cache/*.html
+
+# Distribution PDFs (ignore generated PDFs, keep tracked deliverables)
+dist/*.pdf
