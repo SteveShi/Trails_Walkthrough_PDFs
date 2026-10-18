@@ -1,0 +1,162 @@
+"""
+轨迹系列 12 部作品元数据配置表
+"""
+
+GAMES_CONFIG = [
+    {
+        "id": "sora_1st",
+        "title": "英雄传说 空之轨迹 the 1st（重制版）",
+        "subtitle": "The Legend of Heroes: Trails in the Sky the 1st",
+        "era": "利贝尔篇 · 初代",
+        "point_name": "BP",
+        "max_points": "368 BP (最高评价)",
+        "theme_color": "#0e3860",
+        "accent_color": "#c99a32",
+        "wt_cache": "data/cache/sora_1st_walkthrough.html",
+        "nt_cache": "data/cache/sora_1st_notes.html",
+        "output_pdf": "dist/空之轨迹_the_1st_重制版_100全要素详细攻略.pdf"
+    },
+    {
+        "id": "sora_2nd",
+        "title": "英雄传说 空之轨迹 the 2nd（重制版）",
+        "subtitle": "The Legend of Heroes: Trails in the Sky the 2nd",
+        "era": "利贝尔篇 · 完结",
+        "point_name": "BP",
+        "max_points": "382 BP (最高评价 A级游击士)",
+        "theme_color": "#0d3b66",
+        "accent_color": "#f4d35e",
+        "wt_cache": "data/cache/sora_2nd_wt.html",
+        "nt_cache": "data/cache/sora_2nd_nt.html",
+        "output_pdf": "dist/空之轨迹_the_2nd_重制版_100全要素详细攻略.pdf"
+    },
+    {
+        "id": "zero",
+        "title": "英雄传说 零之轨迹 / 改",
+        "subtitle": "The Legend of Heroes: Trails from Zero",
+        "era": "克洛斯贝尔篇 · 前篇",
+        "point_name": "DP",
+        "max_points": "380 DP (特务支援课最高等级 1st)",
+        "theme_color": "#1b4965",
+        "accent_color": "#62b6cb",
+        "wt_cache": "data/cache/zero_wt.html",
+        "nt_cache": "data/cache/zero_nt.html",
+        "output_pdf": "dist/零之轨迹_100全要素详细攻略.pdf"
+    },
+    {
+        "id": "ao",
+        "title": "英雄传说 碧之轨迹 / 改",
+        "subtitle": "The Legend of Heroes: Trails to Azure",
+        "era": "克洛斯贝尔篇 · 完结",
+        "point_name": "DP",
+        "max_points": "405 DP (最高评价 1st 搜查官)",
+        "theme_color": "#133c55",
+        "accent_color": "#59a5d8",
+        "wt_cache": "data/cache/ao_wt.html",
+        "nt_cache": "data/cache/ao_nt.html",
+        "output_pdf": "dist/碧之轨迹_100全要素详细攻略.pdf"
+    },
+    {
+        "id": "sen1",
+        "title": "英雄传说 闪之轨迹 I / 改",
+        "subtitle": "The Legend of Heroes: Trails of Cold Steel I",
+        "era": "埃雷波尼亚帝国篇 · 学院起航",
+        "point_name": "AP",
+        "max_points": "440 AP (最高评价 甲零级)",
+        "theme_color": "#5e1914",
+        "accent_color": "#d4af37",
+        "wt_cache": "data/cache/sen1_wt.html",
+        "nt_cache": "data/cache/sen1_nt.html",
+        "output_pdf": "dist/闪之轨迹1_100全要素详细攻略.pdf"
+    },
+    {
+        "id": "sen2",
+        "title": "英雄传说 闪之轨迹 II / 改",
+        "subtitle": "The Legend of Heroes: Trails of Cold Steel II",
+        "era": "埃雷波尼亚帝国篇 · 内战烽烟",
+        "point_name": "AP",
+        "max_points": "315 AP (最高评价 甲零级)",
+        "theme_color": "#6b1426",
+        "accent_color": "#e0a96d",
+        "wt_cache": "data/cache/sen2_wt.html",
+        "nt_cache": "data/cache/sen2_nt.html",
+        "output_pdf": "dist/闪之轨迹2_100全要素详细攻略.pdf"
+    },
+    {
+        "id": "sen3",
+        "title": "英雄传说 闪之轨迹 III",
+        "subtitle": "The Legend of Heroes: Trails of Cold Steel III",
+        "era": "埃雷波尼亚帝国篇 · 第二分校",
+        "point_name": "AP",
+        "max_points": "417 AP (最高评价 S级分校教官)",
+        "theme_color": "#4a154b",
+        "accent_color": "#deb974",
+        "wt_cache": "data/cache/sen3_wt.html",
+        "nt_cache": "data/cache/sen3_nt.html",
+        "output_pdf": "dist/闪之轨迹3_100全要素详细攻略.pdf"
+    },
+    {
+        "id": "sen4",
+        "title": "英雄传说 闪之轨迹 IV -THE END OF SAGA-",
+        "subtitle": "The Legend of Heroes: Trails of Cold Steel IV",
+        "era": "埃雷波尼亚帝国篇 · 终焉物语",
+        "point_name": "AP",
+        "max_points": "353 AP (最高评价 甲零级)",
+        "theme_color": "#3d1326",
+        "accent_color": "#c59b27",
+        "wt_cache": "data/cache/sen4_wt.html",
+        "nt_cache": "data/cache/sen4_nt.html",
+        "output_pdf": "dist/闪之轨迹4_100全要素详细攻略.pdf"
+    },
+    {
+        "id": "hajimari",
+        "title": "英雄传说 创之轨迹",
+        "subtitle": "The Legend of Heroes: Trails into Reverie",
+        "era": "塞姆利亚大陆十字路口 · 巨变交错",
+        "point_name": "RP",
+        "max_points": "梦幻回廊全阶层制霸 / 统一白金",
+        "theme_color": "#1f1d36",
+        "accent_color": "#e9a6a6",
+        "wt_cache": "data/cache/hajimari_wt.html",
+        "nt_cache": "data/cache/hajimari_nt.html",
+        "output_pdf": "dist/创之轨迹_100全要素详细攻略.pdf"
+    },
+    {
+        "id": "kuro1",
+        "title": "英雄传说 黎之轨迹",
+        "subtitle": "The Legend of Heroes: Trails through Daybreak I",
+        "era": "卡尔瓦德共和国篇 · 黎明黎生",
+        "point_name": "SP",
+        "max_points": "405 SP (地下万事屋最高评价 AAA级) & LGC Level 5",
+        "theme_color": "#102542",
+        "accent_color": "#f87060",
+        "wt_cache": "data/cache/kuro1_wt.html",
+        "nt_cache": "data/cache/kuro1_nt.html",
+        "output_pdf": "dist/黎之轨迹1_100全要素详细攻略.pdf"
+    },
+    {
+        "id": "kuro2",
+        "title": "英雄传说 黎之轨迹 II -CRIMSON SiN-",
+        "subtitle": "The Legend of Heroes: Trails through Daybreak II",
+        "era": "卡尔瓦德共和国篇 · 绯红原罪",
+        "point_name": "SP",
+        "max_points": "408 SP (地下万事屋最高评价 AAA级)",
+        "theme_color": "#49111c",
+        "accent_color": "#ff4d6d",
+        "wt_cache": "data/cache/kuro2_wt.html",
+        "nt_cache": "data/cache/kuro2_nt.html",
+        "output_pdf": "dist/黎之轨迹2_100全要素详细攻略.pdf"
+    },
+    {
+        "id": "kai",
+        "title": "英雄传说 界之轨迹 -Farewell, O Zemuria-",
+        "subtitle": "The Legend of Heroes: Kai no Kiseki",
+        "era": "塞姆利亚大陆新篇 · 告别塞姆利亚",
+        "point_name": "SP",
+        "max_points": "415 SP (三方势力全任务达成最高评价)",
+        "theme_color": "#14213d",
+        "accent_color": "#fca311",
+        "wt_cache": "data/cache/kai_wt.html",
+        "nt_cache": "data/cache/kai_nt.html",
+        "output_pdf": "dist/界之轨迹_100全要素详细攻略.pdf"
+    }
+]

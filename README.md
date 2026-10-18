@@ -1,120 +1,114 @@
-[简体中文版](README.zh-CN.md) | English
+English | [简体中文版](README.zh-CN.md)
 
-# Trails Walkthrough PDF Generator
+# Trails Series 100% Walkthrough & Vector PDF Publishing Pipeline
 
-> High-Fidelity JRPG Tactical Terminal Walkthrough & Vector PDF Publishing Pipeline for *The Legend of Heroes: Trails* Series.  
-> Master Benchmark Showcase: **The Legend of Heroes: Trails in the Sky the 1st (Remake) — 100% Full Walkthrough & Platinum Trophy Guide**.
+> Automated pipeline for compiling, typesetting, and rendering publication-grade A4 vector PDFs in a high-fidelity JRPG Tactical Terminal style for Falcom's *The Legend of Heroes: Trails Series*.  
+> **Includes all 12 core games**: Trails in the Sky the 1st (Remake), the 2nd (Remake), Trails from Zero, Trails to Azure, Trails of Cold Steel I–IV, Trails into Reverie, Trails through Daybreak I–II, and Kai no Kiseki (Farewell, O Zemuria).
 
 ---
 
 ## 📖 Overview
 
-This project provides an automated, publishing-grade pipeline to scrape, parse, build, and export comprehensive 100% platinum walkthroughs for Falcom's *Trails* series into beautiful, printable vector A4 PDFs.
+This project provides a fully engineered, modular, and automated pipeline for scraping game data, semantic parsing, CSS Paged Media layout composition, and lossless vector PDF rendering.
 
-Designed with an immersive **Bracer Guild Tactical Orbment Terminal** interface, every section adheres strictly to CSS Paged Media standards (`@page`, `break-inside: avoid`, high-contrast typography, and tactile color accents), producing pixel-perfect documents ready for reading on tablets, monitors, or physical double-sided printing.
-
----
-
-## 🎯 Master Benchmark: *Trails in the Sky the 1st (Remake)*
-
-The project includes the master deliverable:
-- **File**: [`dist/空之轨迹_the_1st_重制版_100全要素详细攻略.pdf`](dist/空之轨迹_the_1st_重制版_100全要素详细攻略.pdf)
-- **Pages**: 52 A4 Vector Pages
-- **File Size**: ~7.91 MB
-- **Coverage Highlights**:
-  - **100% Full BP Path (368 BP Max)**: All prologue through final chapter main scenarios and side quests with strict timeframes and dialogue choices.
-  - **Remake Exclusive Mechanics**: Field battle tactics, command battle optimizations, newly added remake sub-quests, and NG+ carryover / LV+50 difficulty adjustments.
-  - **Complete Collection Encyclopedias**:
-    - *Carnelia* (红耀石) Vol 1–11 complete novels + Liberl News complete issues with missable warnings.
-    - Full cooking recipe compendium (30+ recipes) including recommend chef assignments, unique dishes (独门料理), and peculiar dishes (意外料理).
-    - Complete fishing log (全钓鱼图鉴) with bait matching, rod recommendations, coordinates, and septium drop tables.
-  - **Boss Tactics & Counters**: Action orders, weakness element tables, counter strategies, and party loadouts.
+The visual design closely follows the iconic **Bracer Guild Tactical Orbment Terminal** interface from the *Trails Series*, featuring custom saga palettes (Orbment Deep Blue, Crossbell Teal, Thors Imperial Crimson, Reverie Violet, Arkride Night-Navy), gold highlights, and concentric orbment geometry. It incorporates extensive CSS Paged Media rules (`@page` margins, `break-inside: avoid` orphan protection, zebra-striped data tables, and missable alert badges) optimized for tablet viewing and dual-sided physical printing.
 
 ---
 
-## 🏗 System Architecture
+## 🎯 Deliverables (12 Independent PDFs)
 
-The pipeline consists of four modular, decoupled layers:
+Independent high-resolution vector PDFs for all 12 games are generated in the [`dist/`](dist/) directory, totaling **672 pages** and approximately **96 MB**:
+
+| No. | Saga & Game Title | Max Points | Pages | PDF Size | File Deliverable |
+| :---: | :--- | :---: | :---: | :---: | :--- |
+| **01** | **Trails in the Sky the 1st (Remake)** | 368 BP | 52 p. | 7.91 MB | [`空之轨迹_the_1st_重制版_100全要素详细攻略.pdf`](dist/空之轨迹_the_1st_重制版_100全要素详细攻略.pdf) |
+| **02** | **Trails in the Sky the 2nd (Remake)** | 382 BP | 26 p. | 4.59 MB | [`空之轨迹_the_2nd_重制版_100全要素详细攻略.pdf`](dist/空之轨迹_the_2nd_重制版_100全要素详细攻略.pdf) |
+| **03** | **Trails from Zero** | 380 DP | 31 p. | 5.19 MB | [`零之轨迹_100全要素详细攻略.pdf`](dist/零之轨迹_100全要素详细攻略.pdf) |
+| **04** | **Trails to Azure** | 405 DP | 51 p. | 7.39 MB | [`碧之轨迹_100全要素详细攻略.pdf`](dist/碧之轨迹_100全要素详细攻略.pdf) |
+| **05** | **Trails of Cold Steel I** | 440 AP | 42 p. | 6.76 MB | [`闪之轨迹1_100全要素详细攻略.pdf`](dist/闪之轨迹1_100全要素详细攻略.pdf) |
+| **06** | **Trails of Cold Steel II** | 315 AP | 48 p. | 7.26 MB | [`闪之轨迹2_100全要素详细攻略.pdf`](dist/闪之轨迹2_100全要素详细攻略.pdf) |
+| **07** | **Trails of Cold Steel III** | 417 AP | 56 p. | 8.25 MB | [`闪之轨迹3_100全要素详细攻略.pdf`](dist/闪之轨迹3_100全要素详细攻略.pdf) |
+| **08** | **Trails of Cold Steel IV** | 353 AP | 73 p. | 10.20 MB | [`闪之轨迹4_100全要素详细攻略.pdf`](dist/闪之轨迹4_100全要素详细攻略.pdf) |
+| **09** | **Trails into Reverie** | Platinum | 90 p. | 11.67 MB | [`创之轨迹_100全要素详细攻略.pdf`](dist/创之轨迹_100全要素详细攻略.pdf) |
+| **10** | **Trails through Daybreak I** | 405 SP | 57 p. | 8.56 MB | [`黎之轨迹1_100全要素详细攻略.pdf`](dist/黎之轨迹1_100全要素详细攻略.pdf) |
+| **11** | **Trails through Daybreak II** | 408 SP | 63 p. | 9.04 MB | [`黎之轨迹2_100全要素详细攻略.pdf`](dist/黎之轨迹2_100全要素详细攻略.pdf) |
+| **12** | **Kai no Kiseki -Farewell, O Zemuria-** | 415 SP | 83 p. | 8.91 MB | [`界之轨迹_100全要素详细攻略.pdf`](dist/界之轨迹_100全要素详细攻略.pdf) |
+
+### Every Guide Standardly Features:
+1. **Cover & Tactical Terminal TOC**: Immersive tech terminal cover with platinum achievement targets (BP/DP/AP/RP/SP) and direct navigation anchors.
+2. **Comprehensive Chapter Walkthrough**: Complete coverage of main story, side quests, hidden dialog branches, red missable alerts, and field action / command battle strategies.
+3. **Boss Tactical Dossiers**: Weakness effectiveness tables (Earth, Water, Fire, Wind, Time, Space, Mirage), abnormal status immunities, and S-Craft burst recommendations.
+4. **Appendix 1: Complete Books & Periodicals**: Novels, limited-time magazines, newspapers, and academic documents with ultimate weapon exchange indicators.
+5. **Appendix 2: Full Cooking & Recipe List**: Recipe names, locations, recommended chefs, master dishes (unique), failure dishes, and stat bonuses.
+6. **Appendix 3: Complete Fishing & Tackle Compendium**: Rod tiers, bait pairings, fishing grounds, and sepith/item drops.
+7. **Appendix 4: NG+ Carryover & Ultimate Superbosses**: Carryover guide and high-difficulty superboss tactics.
+
+---
+
+## 🏗 Pipeline Architecture
 
 ```
-[Falcom Data / Web Cache]
-           │
-           ▼
-   src/scraper.py         (Scrapes and caches raw walkthrough pages)
-           │
-           ▼
-   src/parser.py          (Parses into structured JSON/Dict schema: quests, books, recipes, fish)
-           │
-           ▼
-   src/builder.py         (Renders JRPG Tactical Terminal HTML + templates/style.css)
-           │
-           ▼
-   src/pdf_exporter.py    (Headless Chrome Skia PDF engine with vector typography)
-           │
-           ▼
-        main.py           (One-click CLI entry point)
-           │
-           ▼
-   dist/空之轨迹_the_1st_重制版_100全要素详细攻略.pdf (Final Master PDF)
+[trails-game.com / Guide Database]
+                 │
+                 ▼
+          src/scraper.py           (Web cache & persistence engine)
+                 │
+                 ▼
+          src/parser.py            (Sora 1st Remake deep parser)
+       src/universal_builder.py    (Universal multi-game parser & HTML builder)
+                 │
+                 ▼
+        templates/style.css        (Bracer Terminal JRPG print styles)
+                 │
+                 ▼
+        src/pdf_exporter.py        (Chrome Headless Skia vector renderer)
+                 │
+                 ▼
+        src/batch_runner.py        (12-game batch compilation runner)
+              main.py              (Unified CLI entry point)
+                 │
+                 ▼
+               dist/*.pdf          (12 Independent Publication-Grade PDFs)
 ```
-
-1. **Scraper (`src/scraper.py`)**: Fetches raw walkthrough documents from established Falcom game wikis with local caching.
-2. **Parser (`src/parser.py`)**: Normalizes raw markup into clean Python data contracts with validation and fallback heuristics.
-3. **HTML Builder (`src/builder.py`)**: Assembles responsive, printable HTML adhering to Falcom tactical terminal UI themes (`templates/style.css`).
-4. **PDF Exporter (`src/pdf_exporter.py`)**: Uses Google Chrome Headless mode (`--headless=new`, Skia vector engine) to render pristine A4 PDFs without watermarks or page headers/footers.
-5. **CLI Runner (`main.py`)**: Unified command-line interface with options for custom output and fast preview.
 
 ---
 
 ## 🚀 Quick Start
 
 ### 1. Requirements
-
 - **Python**: 3.10 or higher
-- **Browser**: Google Chrome or Chromium (installed in standard location or specified via `CHROME_BIN`)
-- **OS**: macOS, Linux, or Windows
+- **Browser**: Google Chrome or Chromium (standard installation or configured via `CHROME_BIN` environment variable)
+- **OS**: macOS / Linux / Windows
 
-### 2. Generate the Master PDF
-
-Run the unified CLI runner from the project root:
+### 2. Commands
 
 ```bash
-# Generate the master benchmark PDF (outputs to dist/)
+# Batch generate all 12 independent PDFs
+python3 main.py --all
+
+# Generate a specific game (e.g. Kai no Kiseki)
+python3 main.py --game kai
+
+# Default: Generate benchmark game (Trails in the Sky the 1st Remake)
 python3 main.py
-```
 
-### 3. CLI Options
-
-```bash
-# View CLI help
-python3 main.py --help
-
-# Generate HTML only (for instant browser preview)
-python3 main.py --html-only
-
-# Specify custom PDF output destination
-python3 main.py -o /path/to/custom_guide.pdf
+# HTML-only preview (fast browser debugging without calling Chrome)
+python3 main.py --game zero --html-only
 ```
 
 ---
 
-## 🧪 Testing & Verification
+## 🧪 Automated Testing
 
-The project maintains comprehensive unit tests across all pipeline stages:
+Run the full unit and integration test suite:
 
 ```bash
-python3 -m unittest discover tests
+python3 -m unittest discover -s tests
 ```
-
-- `test_parser.py`: Schema validation, quest completeness, BP totals, and data integrity.
-- `test_builder.py`: HTML generation, table structures, and style integration.
-- `test_pdf_exporter.py`: Headless Chrome binary detection, PDF generation, and error handling.
-- `test_main.py`: Command-line options, failure handling, and custom output routes.
 
 ---
 
-## 📝 Author & Acknowledgments
+## 📝 Author & Copyright
 
 - **Author**: Steve Shi / 轩楝 (`zh-Hans`)
-- **Affiliation**: Bracer Guild Liberl Branch Tactical Intelligence
-- **Copyright**: *The Legend of Heroes* and all related characters and trademarks are copyright © Nihon Falcom Corporation.
+- **Copyright Notice**: *The Legend of Heroes: Trails Series* and all related characters, lore, and assets are trademarks and copyright of Nihon Falcom Corporation.
