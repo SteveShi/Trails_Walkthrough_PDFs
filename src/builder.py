@@ -17,75 +17,56 @@ def format_strategy(strat: str) -> str:
         s = s[4:]
     return s
 
-def build_sora_1st_html(output_path: str = None) -> str:
-    """构建《空之轨迹 the 1st 重制版》JRPG 终端风格完整全要素白金攻略 HTML"""
-    data = parse_sora_1st_all()
+def render_cover(data: dict) -> str:
+    """渲染封面设计 HTML"""
+    title = html.escape(str(data.get('title', '')))
+    subtitle = html.escape(str(data.get('subtitle', '')))
+    max_bp = html.escape(str(data.get('max_bp', '')))
 
-    # 读取样式表
-    css_path = os.path.join(os.path.dirname(__file__), "../templates/style.css")
-    with open(css_path, "r", encoding="utf-8") as f:
-        css_content = f.read()
+    parts = [
+        "<div class='cover-page'>",
+        "<div class='cover-orbment-decoration'></div>",
+        "<div class='cover-orbment-inner'></div>",
+        "<div class='cover-header-group'>",
+        "<div class='cover-tagline'>Bracer Guild Liberl Branch · Tactical Orbment Terminal</div>",
+        f"<div class='cover-title'>{title}</div>",
+        f"<div class='cover-subtitle'>{subtitle}</div>",
+        f"<div class='cover-badge'>【最高评价: {max_bp}】</div>",
+        "</div>",
+        "<div class='cover-feature-grid'>",
+        "<div class='cover-feature-item'><strong>100% 白金流程</strong>全主支线任务 / 时限与隐藏BP全解析</div>",
+        "<div class='cover-feature-item'><strong>重制版新特性</strong>原野战斗 / 新增支线 / 指令连结对策</div>",
+        "<div class='cover-feature-item'><strong>四大全收集手册</strong>全书籍小说 / 全料理食谱 / 全钓点图鉴</div>",
+        "<div class='cover-feature-item'><strong>二周目终极挑战</strong>继承机制 / LV+50模式 / 隐藏回路</div>",
+        "</div>",
+        "<div class='cover-footer-meta'>",
+        "游击士协会·利贝尔支部 编制 | 适用平台：PlayStation 5 / Nintendo Switch / Steam (PC)<br>",
+        "严格遵循 A4 竖版 Paged Media 规范 · 包含全章节 368 最大 BP 达成路径 · 防漏检对照手册",
+        "</div>",
+        "</div>"
+    ]
+    return "\n".join(parts)
 
-    # 确定输出路径
-    if not output_path:
-        out_dir = os.path.join(os.path.dirname(__file__), "../build")
-        os.makedirs(out_dir, exist_ok=True)
-        output_path = os.path.join(out_dir, "sora_1st.html")
-    else:
-        os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
+def render_toc(data: dict) -> str:
+    """渲染目录与系统概览 HTML"""
+    parts = [
+        "<div class='overview-section' id='toc'>",
+        "<div class='table-of-contents'>",
+        "<div class='toc-header'>",
+        "<h2 class='toc-title'>📱 游击士终端系统导航目录</h2>",
+        "<span style='font-size: 8.5pt; color: #7f8c8d; font-weight: 600;'>TACTICAL TERMINAL DIRECTORY</span>",
+        "</div>",
+        "<ul class='toc-grid'>"
+    ]
 
-    parts = []
-    parts.append("<!DOCTYPE html>")
-    parts.append("<html lang='zh-CN'>")
-    parts.append("<head>")
-    parts.append("<meta charset='UTF-8'>")
-    parts.append("<meta name='viewport' content='width=device-width, initial-scale=1.0'>")
-    parts.append(f"<title>{data['title']} 100%全要素白金攻略</title>")
-    parts.append("<style>")
-    parts.append(css_content)
-    parts.append("</style>")
-    parts.append("</head>")
-    parts.append("<body>")
+    for idx, chap in enumerate(data.get('chapters', [])):
+        chap_title = html.escape(str(chap.get('title', '')))
+        parts.append(f"<li class='toc-item'><a href='#chap-{idx}'>{chap_title}</a><span class='toc-jump'>直达 ▸</span></li>")
 
-    # 1. 封面设计
-    parts.append("<div class='cover-page'>")
-    parts.append("<div class='cover-orbment-decoration'></div>")
-    parts.append("<div class='cover-orbment-inner'></div>")
-    parts.append("<div class='cover-header-group'>")
-    parts.append("<div class='cover-tagline'>Bracer Guild Liberl Branch · Tactical Orbment Terminal</div>")
-    parts.append(f"<div class='cover-title'>{data['title']}</div>")
-    parts.append(f"<div class='cover-subtitle'>{data['subtitle']}</div>")
-    parts.append(f"<div class='cover-badge'>【最高评价: {data['max_bp']}】</div>")
-    parts.append("</div>")
-
-    parts.append("<div class='cover-feature-grid'>")
-    parts.append("<div class='cover-feature-item'><strong>100% 白金流程</strong>全主支线任务 / 时限与隐藏BP全解析</div>")
-    parts.append("<div class='cover-feature-item'><strong>重制版新特性</strong>原野战斗 / 新增支线 / 指令连结对策</div>")
-    parts.append("<div class='cover-feature-item'><strong>四大全收集手册</strong>全书籍小说 / 全料理食谱 / 全钓点图鉴</div>")
-    parts.append("<div class='cover-feature-item'><strong>二周目终极挑战</strong>继承机制 / LV+50模式 / 隐藏回路</div>")
-    parts.append("</div>")
-
-    parts.append("<div class='cover-footer-meta'>")
-    parts.append("游击士协会·利贝尔支部 编制 | 适用平台：PlayStation 5 / Nintendo Switch / Steam (PC)<br>")
-    parts.append("严格遵循 A4 竖版 Paged Media 规范 · 包含全章节 368 最大 BP 达成路径 · 防漏检对照手册")
-    parts.append("</div>")
-    parts.append("</div>")  # end cover-page
-
-    # 2. 目录与系统概览
-    parts.append("<div class='overview-section' id='toc'>")
-    parts.append("<div class='table-of-contents'>")
-    parts.append("<div class='toc-header'>")
-    parts.append("<h2 class='toc-title'>📱 游击士终端系统导航目录</h2>")
-    parts.append("<span style='font-size: 8.5pt; color: #7f8c8d; font-weight: 600;'>TACTICAL TERMINAL DIRECTORY</span>")
-    parts.append("</div>")
-
-    parts.append("<ul class='toc-grid'>")
-    for idx, chap in enumerate(data['chapters']):
-        parts.append(f"<li class='toc-item'><a href='#chap-{idx}'>{chap['title']}</a><span>P.{idx + 2}</span></li>")
-    parts.append("<li class='toc-item'><a href='#appendix-1'>附录一：全书籍与小说收集列表 (全33卷)</a><span>P.8</span></li>")
-    parts.append("<li class='toc-item'><a href='#appendix-2'>附录二：全料理食谱与大成功对应表 (全17道)</a><span>P.9</span></li>")
-    parts.append("<li class='toc-item'><a href='#appendix-3'>附录三：全钓鱼图鉴与钓点大全 (全10种)</a><span>P.10</span></li>")
-    parts.append("<li class='toc-item'><a href='#appendix-4'>附录四：二周目通关继承与终极魔兽挑战</a><span>P.11</span></li>")
+    parts.append("<li class='toc-item'><a href='#appendix-1'>附录一：全书籍与小说收集列表 (全33卷)</a><span class='toc-jump'>直达 ▸</span></li>")
+    parts.append("<li class='toc-item'><a href='#appendix-2'>附录二：全料理食谱与大成功对应表 (全17道)</a><span class='toc-jump'>直达 ▸</span></li>")
+    parts.append("<li class='toc-item'><a href='#appendix-3'>附录三：全钓鱼图鉴与钓点大全 (全10种)</a><span class='toc-jump'>直达 ▸</span></li>")
+    parts.append("<li class='toc-item'><a href='#appendix-4'>附录四：二周目通关继承与终极魔兽挑战</a><span class='toc-jump'>直达 ▸</span></li>")
     parts.append("</ul>")
     parts.append("</div>")  # end table-of-contents
 
@@ -99,29 +80,38 @@ def build_sora_1st_html(output_path: str = None) -> str:
     parts.append("</div>")
     parts.append("</div>")  # end overview-section
 
-    # 3. 详细章节全流程
-    for idx, chap in enumerate(data['chapters']):
+    return "\n".join(parts)
+
+def render_chapters(chapters: list) -> str:
+    """渲染详细章节全流程 HTML"""
+    parts = []
+    for idx, chap in enumerate(chapters):
+        chap_title = html.escape(str(chap.get('title', '')))
         parts.append(f"<div class='chapter-container' id='chap-{idx}'>")
-        parts.append(f"<h1 class='chapter-header'><span>{chap['title']}</span><span style='font-size: 8.5pt; font-weight: normal; opacity: 0.85;'>CHAPTER {idx}</span></h1>")
+        parts.append(f"<h1 class='chapter-header'><span>{chap_title}</span><span style='font-size: 8.5pt; font-weight: normal; opacity: 0.85;'>CHAPTER {idx}</span></h1>")
 
         # 章节概览卡片
         parts.append("<div class='overview-card'>")
-        parts.append(f"<div class='overview-card-title'>📋 本章核心目标与时限防漏排查</div>")
+        parts.append("<div class='overview-card-title'>📋 本章核心目标与时限防漏排查</div>")
         parts.append("<div class='overview-grid'>")
-        main_objs_str = "、".join(chap['main_objectives'][:4]) if chap['main_objectives'] else "按流程推进主线调查"
-        if len(chap['main_objectives']) > 4:
-            main_objs_str += f" 等共 {len(chap['main_objectives'])} 个关键节点"
+        raw_objs = chap.get('main_objectives', [])
+        escaped_objs = [html.escape(str(obj)) for obj in raw_objs[:4]]
+        main_objs_str = "、".join(escaped_objs) if escaped_objs else "按流程推进主线调查"
+        if len(raw_objs) > 4:
+            main_objs_str += f" 等共 {len(raw_objs)} 个关键节点"
         parts.append(f"<div class='overview-row'><span class='overview-label'>核心推进：</span><span class='overview-val'>{main_objs_str}</span></div>")
 
-        miss_str = "、".join(chap['missables'][:4]) if chap['missables'] else "本章无易错漏极短时限委托"
-        if len(chap['missables']) > 4:
-            miss_str += f" 等共 {len(chap['missables'])} 项时限内容"
+        raw_miss = chap.get('missables', [])
+        escaped_miss = [html.escape(str(m)) for m in raw_miss[:4]]
+        miss_str = "、".join(escaped_miss) if escaped_miss else "本章无易错漏极短时限委托"
+        if len(raw_miss) > 4:
+            miss_str += f" 等共 {len(raw_miss)} 项时限内容"
         parts.append(f"<div class='overview-row'><span class='overview-label'>时限防漏：</span><span class='overview-val'>{miss_str}</span></div>")
         parts.append("</div>")
         parts.append("</div>")
 
         # 任务流程卡片
-        for quest in chap['quests']:
+        for quest in chap.get('quests', []):
             classes = ["quest-card"]
             if quest.get('type') == 'main':
                 classes.append("quest-main")
@@ -135,7 +125,7 @@ def build_sora_1st_html(output_path: str = None) -> str:
             parts.append(f"<div class='{' '.join(classes)}'>")
             parts.append("<div class='quest-header'>")
             parts.append("<div class='quest-title-area'>")
-            parts.append(f"<span class='quest-title'>{html.escape(quest['name'])}</span>")
+            parts.append(f"<span class='quest-title'>{html.escape(str(quest.get('name', '')))}</span>")
             if quest.get('type') == 'main':
                 parts.append("<span class='badge badge-main'>主线任务</span>")
             else:
@@ -145,7 +135,7 @@ def build_sora_1st_html(output_path: str = None) -> str:
             if quest.get('is_missable'):
                 parts.append("<span class='badge badge-missable'>时限·注意</span>")
             if quest.get('bp'):
-                parts.append(f"<span class='badge badge-bp'>BP: {html.escape(quest['bp'])}</span>")
+                parts.append(f"<span class='badge badge-bp'>BP: {html.escape(str(quest['bp']))}</span>")
             parts.append("</div>")
             parts.append("</div>")
 
@@ -153,10 +143,10 @@ def build_sora_1st_html(output_path: str = None) -> str:
             if quest.get('steps'):
                 parts.append("<ul class='quest-steps'>")
                 for s in quest['steps']:
-                    parts.append(f"<li class='quest-step-item'>{html.escape(s)}</li>")
+                    parts.append(f"<li class='quest-step-item'>{html.escape(str(s))}</li>")
                 parts.append("</ul>")
-            elif quest.get('content') and quest['content'] != quest['name']:
-                clean_c = html.escape(quest['content']).replace('\n', '<br>')
+            elif quest.get('content') and quest['content'] != quest.get('name'):
+                clean_c = html.escape(str(quest['content'])).replace('\n', '<br>')
                 parts.append(f"<div style='font-size: 9pt; color: #34495e; line-height: 1.5; margin: 6px 0;'>{clean_c}</div>")
             else:
                 parts.append("<div style='font-size: 8.8pt; color: #7f8c8d; margin: 4px 0;'>前往指定地点调查并推进剧情对话。</div>")
@@ -164,21 +154,27 @@ def build_sora_1st_html(output_path: str = None) -> str:
             parts.append("</div>")  # end quest-card
 
         # BOSS 战斗卡片
-        if chap['bosses']:
+        if chap.get('bosses'):
             parts.append("<h2 class='section-header'>⚔️ 本章关键 BOSS / 剧情战术速查</h2>")
             for boss in chap['bosses']:
                 parts.append("<div class='boss-card'>")
                 parts.append("<div class='boss-header'>")
-                parts.append(f"<div class='boss-title'>⚔️ {html.escape(boss['name'])}</div>")
+                parts.append(f"<div class='boss-title'>⚔️ {html.escape(str(boss.get('name', '')))}</div>")
                 if boss.get('enemies'):
-                    parts.append(f"<div class='boss-enemies'>敌方配置：{html.escape(boss['enemies'])}</div>")
+                    parts.append(f"<div class='boss-enemies'>敌方配置：{html.escape(str(boss['enemies']))}</div>")
                 parts.append("</div>")
                 parts.append("<div class='boss-strategy'>")
-                parts.append(format_strategy(boss['strategy']))
+                parts.append(format_strategy(boss.get('strategy', '')))
                 parts.append("</div>")
                 parts.append("</div>")  # end boss-card
 
         parts.append("</div>")  # end chapter-container
+
+    return "\n".join(parts)
+
+def render_appendices(data: dict) -> str:
+    """渲染附录（书籍、料理、钓鱼、二周目）HTML"""
+    parts = []
 
     # 4. 附录一：书籍全收集一览表
     parts.append("<div class='appendix-container' id='appendix-1'>")
@@ -187,12 +183,14 @@ def build_sora_1st_html(output_path: str = None) -> str:
     parts.append("<table class='data-table'>")
     parts.append("<thead><tr><th style='width: 22%;'>书籍名称</th><th style='width: 25%;'>获得章节/时限</th><th style='width: 28%;'>获得地点/NPC</th><th style='width: 25%;'>收集说明与补救</th></tr></thead>")
     parts.append("<tbody>")
-    for b in data['books']:
-        timing_badge = "<span class='badge badge-missable'>" + html.escape(b['timing']) + "</span>" if "时限" in b.get('note', '') or "立刻" in b.get('timing', '') else "<span class='badge badge-category'>" + html.escape(b['timing']) + "</span>"
-        note_str = html.escape(b['note'])
-        if "最终武器" in note_str:
-            note_str = f"<strong class='highlight-val'>{note_str}</strong>"
-        parts.append(f"<tr><td><strong>{html.escape(b['name'])}</strong></td><td>{timing_badge}</td><td>{html.escape(b['location'])}</td><td>{note_str}</td></tr>")
+    for b in data.get('books', []):
+        timing = html.escape(str(b.get('timing', '')))
+        note = html.escape(str(b.get('note', '')))
+        name = html.escape(str(b.get('name', '')))
+        location = html.escape(str(b.get('location', '')))
+        timing_badge = f"<span class='badge badge-missable'>{timing}</span>" if "时限" in b.get('note', '') or "立刻" in b.get('timing', '') else f"<span class='badge badge-category'>{timing}</span>"
+        note_str = f"<strong class='highlight-val'>{note}</strong>" if "最终武器" in note else note
+        parts.append(f"<tr><td><strong>{name}</strong></td><td>{timing_badge}</td><td>{location}</td><td>{note_str}</td></tr>")
     parts.append("</tbody></table>")
     parts.append("</div>")  # end appendix-1
 
@@ -203,8 +201,14 @@ def build_sora_1st_html(output_path: str = None) -> str:
     parts.append("<table class='data-table'>")
     parts.append("<thead><tr><th style='width: 14%;'>食谱名称</th><th style='width: 24%;'>习得地点</th><th style='width: 12%;'>推荐角色</th><th style='width: 16%;'>独门料理</th><th style='width: 14%;'>意外料理</th><th style='width: 20%;'>制作奖励 (Bonus)</th></tr></thead>")
     parts.append("<tbody>")
-    for r in data['recipes']:
-        parts.append(f"<tr><td><strong>{html.escape(r['name'])}</strong></td><td>{html.escape(r['place'])}</td><td>{html.escape(r['maker'])}</td><td><span class='badge badge-remake'>{html.escape(r['unique'])}</span></td><td><span class='highlight-val'>{html.escape(r['bad'])}</span></td><td><span class='highlight-gold'>{html.escape(r['bonus'])}</span></td></tr>")
+    for r in data.get('recipes', []):
+        name = html.escape(str(r.get('name', '')))
+        place = html.escape(str(r.get('place', '')))
+        maker = html.escape(str(r.get('maker', '')))
+        unique = html.escape(str(r.get('unique', '')))
+        bad = html.escape(str(r.get('bad', '')))
+        bonus = html.escape(str(r.get('bonus', '')))
+        parts.append(f"<tr><td><strong>{name}</strong></td><td>{place}</td><td>{maker}</td><td><span class='badge badge-remake'>{unique}</span></td><td><span class='highlight-val'>{bad}</span></td><td><span class='highlight-gold'>{bonus}</span></td></tr>")
     parts.append("</tbody></table>")
     parts.append("</div>")  # end appendix-2
 
@@ -215,11 +219,15 @@ def build_sora_1st_html(output_path: str = None) -> str:
     parts.append("<table class='data-table'>")
     parts.append("<thead><tr><th style='width: 8%;'>编号</th><th style='width: 16%;'>鱼种名称</th><th style='width: 14%;'>推荐钓竿</th><th style='width: 12%;'>推荐鱼饵</th><th style='width: 26%;'>出现钓点坐标</th><th style='width: 24%;'>掉落耀晶石/奖励</th></tr></thead>")
     parts.append("<tbody>")
-    for f in data['fishes']:
-        name_str = f"<strong>{html.escape(f['name'])}</strong>"
-        if "霸王" in f['name']:
-            name_str = f"<strong class='highlight-val'>{html.escape(f['name'])}</strong>"
-        parts.append(f"<tr><td>#{f['id']}</td><td>{name_str}</td><td>{html.escape(f['rod'])}</td><td>{html.escape(f['bait'])}</td><td>{html.escape(f['place'])}</td><td>{html.escape(f['drop'])}</td></tr>")
+    for f in data.get('fishes', []):
+        fid = html.escape(str(f.get('id', '')))
+        name = html.escape(str(f.get('name', '')))
+        rod = html.escape(str(f.get('rod', '')))
+        bait = html.escape(str(f.get('bait', '')))
+        place = html.escape(str(f.get('place', '')))
+        drop = html.escape(str(f.get('drop', '')))
+        name_str = f"<strong class='highlight-val'>{name}</strong>" if "霸王" in f.get('name', '') else f"<strong>{name}</strong>"
+        parts.append(f"<tr><td>#{fid}</td><td>{name_str}</td><td>{rod}</td><td>{bait}</td><td>{place}</td><td>{drop}</td></tr>")
     parts.append("</tbody></table>")
     parts.append("</div>")  # end appendix-3
 
@@ -259,10 +267,51 @@ def build_sora_1st_html(output_path: str = None) -> str:
 
     parts.append("</div>")  # end appendix-4
 
-    parts.append("</body>")
-    parts.append("</html>")
+    return "\n".join(parts)
 
-    full_html = "\n".join(parts)
+def build_sora_1st_html(output_path: str = None) -> str:
+    """构建《空之轨迹 the 1st 重制版》JRPG 终端风格完整全要素白金攻略 HTML"""
+    data = parse_sora_1st_all()
+
+    # 读取样式表
+    css_path = os.path.join(os.path.dirname(__file__), "../templates/style.css")
+    with open(css_path, "r", encoding="utf-8") as f:
+        css_content = f.read()
+
+    # 确定输出路径
+    if not output_path:
+        out_dir = os.path.join(os.path.dirname(__file__), "../build")
+        os.makedirs(out_dir, exist_ok=True)
+        output_path = os.path.join(out_dir, "sora_1st.html")
+    else:
+        parent_dir = os.path.dirname(os.path.abspath(output_path))
+        if parent_dir:
+            os.makedirs(parent_dir, exist_ok=True)
+
+    title_escaped = html.escape(str(data.get('title', '')))
+    cover_html = render_cover(data)
+    toc_html = render_toc(data)
+    chapters_html = render_chapters(data.get('chapters', []))
+    appendices_html = render_appendices(data)
+
+    full_html = f"""<!DOCTYPE html>
+<html lang='zh-CN'>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<title>{title_escaped} 100%全要素白金攻略</title>
+<style>
+{css_content}
+</style>
+</head>
+<body>
+{cover_html}
+{toc_html}
+{chapters_html}
+{appendices_html}
+</body>
+</html>"""
+
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(full_html)
 

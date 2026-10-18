@@ -252,6 +252,12 @@ body {
     text-decoration: underline;
 }
 
+.toc-jump {
+    font-size: 8pt;
+    color: #95a5a6;
+    font-weight: 600;
+}
+
 /* 章节头部 */
 .chapter-container {
     page-break-before: always;
@@ -509,12 +515,19 @@ table.data-table {
     margin-top: 10px;
     margin-bottom: 18px;
     font-size: 8.8pt;
-    break-inside: avoid;
-    page-break-inside: avoid;
     background: #ffffff;
     border: 1px solid #dce4ec;
     border-radius: 4px;
     overflow: hidden;
+}
+
+table.data-table thead {
+    display: table-header-group;
+}
+
+table.data-table tr {
+    break-inside: avoid;
+    page-break-inside: avoid;
 }
 
 table.data-table th {
