@@ -641,22 +641,16 @@ git commit -m "feat: export pixel-perfect A4 vector PDF via Headless Chrome"
 **Files:**
 - Output: `dist/空之轨迹_the_1st_重制版_100全要素详细攻略.pdf`
 
-- [ ] **Step 1: 运行全管道构建命令生成目标 PDF**
+- [x] **Step 1: 运行全管道构建命令生成目标 PDF**
 
 ```bash
-python3 -c "
-from src.builder import build_sora_1st_html
-from src.pdf_exporter import export_html_to_pdf
-html = build_sora_1st_html()
-pdf = '/Users/steve/Downloads/Trails_Walkthrough_PDFs/dist/空之轨迹_the_1st_重制版_100全要素详细攻略.pdf'
-export_html_to_pdf(html, pdf)
-print('PDF generated successfully:', pdf)
-"
+python3 main.py
 ```
 
-- [ ] **Step 2: 验证 PDF 文件大小与页数**
+- [x] **Step 2: 验证 PDF 文件大小与页数**
 
 Run: `ls -lh /Users/steve/Downloads/Trails_Walkthrough_PDFs/dist/`
-Expected: PDF 文件正常生成，体积 > 50KB
+Expected: PDF 文件正常生成，体积 > 50KB (实际: 52页, 7.91MB)
 
-- [ ] **Step 3: 提交并交付给用户验收**
+- [x] **Step 3: 提交并交付给用户验收**
+
