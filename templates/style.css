@@ -1,0 +1,590 @@
+/* ==========================================================================
+   JRPG Bracer Terminal Paged Media Stylesheet (A4 Print & Screen)
+   Game: The Legend of Heroes: Trails in the Sky the 1st (Remake)
+   ========================================================================== */
+
+@page {
+    size: A4 portrait;
+    margin: 16mm 14mm 16mm 14mm;
+
+    @top-left {
+        content: "游击士协会·利贝尔支部 战术导力终端文档";
+        font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+        font-size: 8pt;
+        color: #7f8c8d;
+        border-bottom: 0.5pt solid #c99a32;
+        padding-bottom: 2mm;
+    }
+
+    @top-right {
+        content: "英雄传说 空之轨迹 the 1st 重制版 100%全要素白金攻略";
+        font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+        font-size: 8pt;
+        color: #7f8c8d;
+        border-bottom: 0.5pt solid #c99a32;
+        padding-bottom: 2mm;
+    }
+
+    @bottom-left {
+        content: "Falcom 经典重制 · 全主支线 / 全书籍 / 全料理 / 全钓鱼 / 二周目要素";
+        font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+        font-size: 8pt;
+        color: #95a5a6;
+        border-top: 0.5pt solid #e0e0e0;
+        padding-top: 2mm;
+    }
+
+    @bottom-right {
+        content: "Page " counter(page);
+        font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+        font-size: 8.5pt;
+        font-weight: 600;
+        color: #0e3860;
+        border-top: 0.5pt solid #e0e0e0;
+        padding-top: 2mm;
+    }
+}
+
+@page :first {
+    margin: 0;
+    @top-left { content: none; }
+    @top-right { content: none; }
+    @bottom-left { content: none; }
+    @bottom-right { content: none; }
+}
+
+* {
+    box-sizing: border-box;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    color: #2c3e50;
+    background-color: #fbfcfd;
+    line-height: 1.55;
+    font-size: 9.5pt;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* 封面页面设计 */
+.cover-page {
+    page-break-after: always;
+    break-after: page;
+    min-height: 297mm;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    background: radial-gradient(circle at 50% 30%, #154360 0%, #0e3860 60%, #081d33 100%);
+    color: #ffffff;
+    padding: 40mm 20mm 30mm 20mm;
+    position: relative;
+    overflow: hidden;
+}
+
+.cover-orbment-decoration {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 240mm;
+    height: 240mm;
+    margin-left: -120mm;
+    margin-top: -120mm;
+    border: 1px dashed rgba(201, 154, 50, 0.25);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.cover-orbment-inner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 170mm;
+    height: 170mm;
+    margin-left: -85mm;
+    margin-top: -85mm;
+    border: 1px solid rgba(255, 213, 79, 0.2);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.cover-header-group {
+    z-index: 2;
+    margin-top: 15mm;
+}
+
+.cover-tagline {
+    font-size: 11pt;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: #c99a32;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.cover-title {
+    font-size: 26pt;
+    font-weight: 900;
+    letter-spacing: 2.5px;
+    margin-bottom: 8px;
+    color: #ffffff;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+}
+
+.cover-subtitle {
+    font-size: 13pt;
+    letter-spacing: 1.5px;
+    color: #ffd54f;
+    margin-bottom: 25px;
+    font-weight: 400;
+}
+
+.cover-badge {
+    display: inline-block;
+    background: rgba(201, 154, 50, 0.2);
+    border: 1.5px solid #ffd54f;
+    color: #ffffff;
+    padding: 6px 18px;
+    border-radius: 24px;
+    font-size: 11pt;
+    font-weight: 600;
+    margin-top: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.cover-feature-grid {
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    width: 100%;
+    max-width: 170mm;
+    margin: 25px 0;
+}
+
+.cover-feature-item {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    padding: 12px 8px;
+    font-size: 9pt;
+}
+
+.cover-feature-item strong {
+    display: block;
+    color: #ffd54f;
+    font-size: 10pt;
+    margin-bottom: 4px;
+}
+
+.cover-footer-meta {
+    z-index: 2;
+    font-size: 8.5pt;
+    color: #bdc3c7;
+    line-height: 1.6;
+}
+
+/* 目录与概览 */
+.overview-section {
+    page-break-after: always;
+    break-after: page;
+    padding-top: 5mm;
+}
+
+.table-of-contents {
+    background: #ffffff;
+    border: 1px solid #dcdde1;
+    border-top: 4px solid #0e3860;
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.toc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1.5px solid #e0e0e0;
+    padding-bottom: 10px;
+    margin-bottom: 14px;
+}
+
+.toc-title {
+    font-size: 14pt;
+    font-weight: 800;
+    color: #0e3860;
+    margin: 0;
+}
+
+.toc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 20px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.toc-item {
+    font-size: 9.5pt;
+    padding: 6px 0;
+    border-bottom: 1px dashed #ecf0f1;
+    display: flex;
+    justify-content: space-between;
+}
+
+.toc-item a {
+    color: #2c3e50;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.toc-item a:hover {
+    color: #0e3860;
+    text-decoration: underline;
+}
+
+/* 章节头部 */
+.chapter-container {
+    page-break-before: always;
+    break-before: page;
+    margin-top: 10px;
+}
+
+h1.chapter-header {
+    background: linear-gradient(90deg, #0e3860 0%, #1a5276 100%);
+    color: #ffffff;
+    padding: 10px 16px;
+    border-radius: 5px;
+    font-size: 13.5pt;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    margin: 0 0 14px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 6px solid #c99a32;
+    box-shadow: 0 2px 6px rgba(14, 56, 96, 0.15);
+}
+
+h2.section-header {
+    border-left: 4px solid #c99a32;
+    padding-left: 10px;
+    color: #0e3860;
+    font-size: 11.5pt;
+    font-weight: 700;
+    margin: 16px 0 10px 0;
+}
+
+/* 卡片容器与防截断机制 */
+.overview-card,
+.quest-card,
+.boss-card {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin-bottom: 12px;
+}
+
+.overview-card {
+    background: #ffffff;
+    border: 1px solid #dce4ec;
+    border-left: 4px solid #c99a32;
+    border-radius: 4px;
+    padding: 12px 14px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.overview-card-title {
+    font-size: 10pt;
+    font-weight: 700;
+    color: #0e3860;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.overview-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 9pt;
+}
+
+.overview-row {
+    display: flex;
+    align-items: flex-start;
+}
+
+.overview-label {
+    width: 80px;
+    font-weight: 600;
+    color: #7f8c8d;
+    flex-shrink: 0;
+}
+
+.overview-val {
+    flex: 1;
+    color: #34495e;
+}
+
+/* 任务卡片 */
+.quest-card {
+    background: #ffffff;
+    border: 1px solid #e1e8ed;
+    border-left: 4px solid #0e3860;
+    border-radius: 4px;
+    padding: 10px 14px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+}
+
+.quest-card.quest-main {
+    border-left-color: #0e3860;
+    background: #ffffff;
+}
+
+.quest-card.quest-side {
+    border-left-color: #2980b9;
+    background: #fdfefe;
+}
+
+.quest-card.quest-remake {
+    border-left-color: #1b5e20;
+    background: #f4fbf7;
+}
+
+.quest-card.quest-missable {
+    border-left-color: #d32f2f;
+}
+
+.quest-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #f0f2f5;
+    padding-bottom: 6px;
+    margin-bottom: 8px;
+}
+
+.quest-title-area {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.quest-title {
+    font-size: 10pt;
+    font-weight: 700;
+    color: #2c3e50;
+}
+
+.quest-steps {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 6px 0;
+}
+
+.quest-step-item {
+    position: relative;
+    padding-left: 18px;
+    margin-bottom: 5px;
+    font-size: 9pt;
+    color: #34495e;
+    line-height: 1.5;
+}
+
+.quest-step-item::before {
+    content: "▸";
+    position: absolute;
+    left: 2px;
+    color: #c99a32;
+    font-weight: bold;
+}
+
+/* BOSS 战术卡片 */
+.boss-card {
+    background: #ffffff;
+    border: 1px solid #e8d7bb;
+    border-left: 5px solid #d35400;
+    border-radius: 5px;
+    padding: 12px 14px;
+    box-shadow: 0 2px 6px rgba(211, 84, 0, 0.06);
+    background: linear-gradient(180deg, #fffcf7 0%, #ffffff 100%);
+}
+
+.boss-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1.5px solid #f3e5d0;
+    padding-bottom: 6px;
+    margin-bottom: 8px;
+}
+
+.boss-title {
+    font-size: 10.5pt;
+    font-weight: 800;
+    color: #b93800;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.boss-enemies {
+    font-size: 9pt;
+    font-weight: 600;
+    color: #7f8c8d;
+    background: #f7ede2;
+    padding: 2px 8px;
+    border-radius: 3px;
+}
+
+.boss-strategy {
+    font-size: 8.8pt;
+    color: #2c3e50;
+    line-height: 1.55;
+    background: rgba(255, 255, 255, 0.7);
+    padding: 8px 10px;
+    border-radius: 4px;
+    border-left: 2px solid #e67e22;
+}
+
+/* 标签样式规范 */
+.badge {
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 7.5pt;
+    font-weight: 700;
+    line-height: 1.2;
+    vertical-align: middle;
+}
+
+.badge-main {
+    background: #0e3860;
+    color: #ffffff;
+}
+
+.badge-side {
+    background: #2980b9;
+    color: #ffffff;
+}
+
+.badge-remake {
+    background: #1b5e20;
+    border: 1px solid #ffd54f;
+    color: #ffffff;
+}
+
+.badge-missable {
+    background: #d32f2f;
+    color: #ffffff;
+}
+
+.badge-bp {
+    background: #c99a32;
+    color: #ffffff;
+    font-family: monospace, sans-serif;
+}
+
+.badge-category {
+    background: #eceff1;
+    color: #455a64;
+    border: 1px solid #cfd8dc;
+}
+
+/* 收集品数据表格 */
+table.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    margin-bottom: 18px;
+    font-size: 8.8pt;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    background: #ffffff;
+    border: 1px solid #dce4ec;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+table.data-table th {
+    background: #0e3860;
+    color: #ffffff;
+    font-weight: 700;
+    padding: 7px 10px;
+    text-align: left;
+    border-right: 1px solid #1a5276;
+    letter-spacing: 0.3px;
+}
+
+table.data-table th:last-child {
+    border-right: none;
+}
+
+table.data-table td {
+    padding: 6px 10px;
+    border-top: 1px solid #e8ecef;
+    border-right: 1px solid #e8ecef;
+    color: #2c3e50;
+    vertical-align: middle;
+}
+
+table.data-table td:last-child {
+    border-right: none;
+}
+
+table.data-table tr:nth-child(even) {
+    background: #f8fafc;
+}
+
+table.data-table tr:hover {
+    background: #edf4fa;
+}
+
+/* 特殊高亮单元格 */
+.highlight-val {
+    font-weight: 700;
+    color: #b93800;
+}
+
+.highlight-gold {
+    font-weight: 700;
+    color: #9c6c08;
+}
+
+/* 附录部分 */
+.appendix-container {
+    page-break-before: always;
+    break-before: page;
+    margin-top: 10px;
+}
+
+.appendix-desc {
+    font-size: 9pt;
+    color: #607d8b;
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+/* 警示与说明框 */
+.alert-box {
+    background: #fef9e7;
+    border: 1px solid #f9e79f;
+    border-left: 4px solid #f39c12;
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-size: 8.8pt;
+    color: #7d6608;
+    margin-bottom: 12px;
+    break-inside: avoid;
+}
