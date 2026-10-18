@@ -1,7 +1,36 @@
 import re
-import html
-import os
 from src.scraper import fetch_sora_1st_data
+
+_RECIPE_METADATA = {
+    "枫糖曲奇": {"maker": "艾丝蒂尔", "unique": "特制枫糖曲奇", "bad": "焦黑曲奇", "bonus": "全体HP+20"},
+    "鲜榨苹果汁": {"maker": "约修亚", "unique": "香浓苹果汁", "bad": "酸苦果汁", "bonus": "全体EP+10"},
+    "草药茶": {"maker": "雪拉扎德", "unique": "清香草药茶", "bad": "泥土茶", "bonus": "全体ADF+3"},
+    "野味浓汤": {"maker": "阿加特", "unique": "巨兽肉汤", "bad": "异味汤", "bonus": "全体STR+5"},
+    "海鲜沙拉": {"maker": "科洛丝", "unique": "王都风味沙拉", "bad": "腥味沙拉", "bonus": "全体ATS+5"},
+    "水果蛋糕": {"maker": "科洛丝", "unique": "皇室水果塔", "bad": "硬块蛋糕", "bonus": "全体HP+50"},
+    "极品炖肉": {"maker": "提妲", "unique": "提妲秘制炖肉", "bad": "焦糊炖块", "bonus": "全体DEF+5"},
+    "王都皇家牛排": {"maker": "奥利维尔", "unique": "华丽帝王牛排", "bad": "半生硬肉", "bonus": "全体STR+10"},
+    "炸薯条": {"maker": "艾丝蒂尔", "unique": "香脆薯条", "bad": "软塌薯条", "bonus": "全体STR+3"},
+    "药草苏打": {"maker": "雪拉扎德", "unique": "清凉苏打", "bad": "苦涩苏打", "bonus": "全体DEF+3"},
+    "洋红之眼": {"maker": "奥利维尔", "unique": "绝品洋红", "bad": "浑浊之眼", "bonus": "全体ATS+3"},
+    "沙拉三明治": {"maker": "科洛丝", "unique": "翡翠三明治", "bad": "干瘪三明治", "bonus": "全体ADF+3"},
+    "梦幻甲壳烧": {"maker": "金", "unique": "霸王甲壳烧", "bad": "焦黑硬壳", "bonus": "全体HP+40"},
+    "花色果冻": {"maker": "提妲", "unique": "缤纷彩虹果冻", "bad": "融化糖水", "bonus": "全体STR+4"},
+    "蜂蜜蛋糕": {"maker": "艾丝蒂尔", "unique": "金黄千层蛋糕", "bad": "死面甜饼", "bonus": "全体DEF+4"},
+    "红尾汤": {"maker": "约修亚", "unique": "深红鲜鱼浓汤", "bad": "腥味清汤", "bonus": "全体ATS+4"},
+    "苹果冰激凌": {"maker": "提妲", "unique": "雪顶苹果芭菲", "bad": "酸苹果冰块", "bonus": "全体ADF+4"},
+}
+
+_FALLBACK_RECIPES = [
+    {"name": "枫糖曲奇", "place": "洛连特钟楼旅馆 / 里农杂货铺", "maker": "艾丝蒂尔", "unique": "特制枫糖曲奇", "bad": "焦黑曲奇", "bonus": "全体HP+20"},
+    {"name": "鲜榨苹果汁", "place": "洛连特亚班特酒馆", "maker": "约修亚", "unique": "香浓苹果汁", "bad": "酸苦果汁", "bonus": "全体EP+10"},
+    {"name": "草药茶", "place": "洛连特民宅·共同住宅", "maker": "雪拉扎德", "unique": "清香草药茶", "bad": "泥土茶", "bonus": "全体ADF+3"},
+    {"name": "野味浓汤", "place": "柏斯安特诺尔餐厅", "maker": "阿加特", "unique": "巨兽肉汤", "bad": "异味汤", "bonus": "全体STR+5"},
+    {"name": "海鲜沙拉", "place": "卢安亚库特酒吧", "maker": "科洛丝", "unique": "王都风味沙拉", "bad": "腥味沙拉", "bonus": "全体ATS+5"},
+    {"name": "水果蛋糕", "place": "杰尼斯学院俱乐部", "maker": "科洛丝", "unique": "皇室水果塔", "bad": "硬块蛋糕", "bonus": "全体HP+50"},
+    {"name": "极品炖肉", "place": "蔡斯福格尔酒馆", "maker": "提妲", "unique": "提妲秘制炖肉", "bad": "焦糊炖块", "bonus": "全体DEF+5"},
+    {"name": "王都皇家牛排", "place": "格兰赛尔阳光咖啡厅", "maker": "奥利维尔", "unique": "华丽帝王牛排", "bad": "半生硬肉", "bonus": "全体STR+10"}
+]
 
 def clean_html(text: str) -> str:
     """清理HTML标签中的脚本、样式等杂质"""
@@ -9,6 +38,29 @@ def clean_html(text: str) -> str:
     text = re.sub(r'<style.*?</style>', '', text, flags=re.DOTALL | re.IGNORECASE)
     text = re.sub(r'<!--.*?-->', '', text, flags=re.DOTALL)
     return text
+
+def clean_quest_body(body_html: str) -> str:
+    """去除任务步骤中混入的折叠子块（宝箱、导力配置、怪物手册、Boss打法等），确保步骤只包含攻略主线推进"""
+    s = body_html
+    prev_len = -1
+    while len(s) != prev_len:
+        prev_len = len(s)
+        s = re.sub(r'<div[^>]*class=[\"\'][^\"\']*collapsible[^\"\']*[\"\'][^>]*>.*?</div>\s*</div>', '', s, flags=re.DOTALL)
+        s = re.sub(r'<div[^>]*class=[\"\'](?:boss|treasure|monster|tips|shop|fish)[^\"\']*[\"\'][^>]*>.*?</div>\s*</div>', '', s, flags=re.DOTALL)
+        s = re.sub(r'<div[^>]*class=[\"\'](?:boss|treasure|monster|tips|shop|fish)[^\"\']*[\"\'][^>]*>.*?</div>', '', s, flags=re.DOTALL)
+        s = re.sub(r'<table[^>]*class=[\"\'](?:achievement|collectibles)[^\"\']*[\"\'][^>]*>.*?</table>', '', s, flags=re.DOTALL)
+    # 处理跨 token 切分导致的未闭合折叠块残余
+    s = re.sub(r'<div[^>]*class=[\"\'][^\"\']*(?:collapsible|boss|treasure)[^\"\']*[\"\'][^>]*>.*$', '', s, flags=re.DOTALL)
+    return s
+
+def extract_steps(html_str: str) -> list:
+    """从HTML片段中清洗并提取有效的步骤文本列表"""
+    cleaned = clean_quest_body(html_str)
+    steps = [re.sub(r'<[^>]+>', '', li).strip() for li in re.findall(r'<li[^>]*>(.*?)</li>', cleaned, re.DOTALL)]
+    if not steps:
+        p_texts = [re.sub(r'<[^>]+>', '', p).strip() for p in re.findall(r'<p[^>]*>(.*?)</p>', cleaned, re.DOTALL)]
+        steps = [pt for pt in p_texts if pt]
+    return [s for s in steps if s]
 
 def parse_chapters(wt_html: str) -> list:
     """解析攻略正文的所有章节、主支线任务、重制版新增项与Boss战斗策略"""
@@ -32,9 +84,49 @@ def parse_chapters(wt_html: str) -> list:
         raw_title = title_m.group(1).strip() if title_m else f"第{i}章"
         title = canonical_titles[i] if i < len(canonical_titles) else raw_title
 
-        # 1. 结构化任务提取
         quests = []
         tokens = re.split(r'(<span class=[\"\'](?:main|side)[\"\']>.*?</span>)', chap_html)
+
+        # 1. 处理 tokens[0] 中的序章开局、终章前往王都收集、以及二周目要素
+        t0 = tokens[0] if tokens else ""
+        if "<div class=\"quest-content\">" in t0 or "<div class='quest-content'>" in t0 or i == 5:
+            parts = re.split(r'<h5[^>]*class=[\"\']area[\"\'][^>]*>(.*?)</h5>', t0)
+            h4_m = re.search(r'<h4[^>]*class=[\"\']section[\"\'][^>]*>(.*?)</h4>', t0)
+            h4_title = h4_m.group(1).strip() if h4_m else ""
+
+            t0_steps = []
+            if len(parts) > 1:
+                for p_idx in range(1, len(parts), 2):
+                    area_name = re.sub(r'[：:\s]+', '', re.sub(r'<[^>]+>', '', parts[p_idx]))
+                    area_body = parts[p_idx + 1] if p_idx + 1 < len(parts) else ""
+                    area_steps = extract_steps(area_body)
+                    for st in area_steps:
+                        t0_steps.append(f"【{area_name}】{st}")
+            else:
+                t0_steps = extract_steps(t0)
+
+            if t0_steps:
+                if i == 0:
+                    q_name = "成为准游击士（布莱特家）"
+                elif h4_title:
+                    q_name = h4_title
+                else:
+                    q_name = "二周目要素"
+
+                is_missable = bool(re.search(r'时限|隐藏|极早|无法补救|红耀石|注意|错过|生命露水', "\n".join(t0_steps) + q_name))
+                is_remake_new = bool(re.search(r'重制|教学|战评|成就|黎之轨迹|界之轨迹|原野战斗|LV\+50|二周目', "\n".join(t0_steps) + q_name))
+
+                quests.append({
+                    "name": q_name,
+                    "type": "main",
+                    "bp": "",
+                    "is_missable": is_missable,
+                    "is_remake_new": is_remake_new,
+                    "steps": t0_steps,
+                    "content": "\n".join(t0_steps)
+                })
+
+        # 2. 结构化任务提取
         for idx in range(1, len(tokens), 2):
             span_tag = tokens[idx]
             body_html = tokens[idx + 1] if idx + 1 < len(tokens) else ""
@@ -56,11 +148,8 @@ def parse_chapters(wt_html: str) -> list:
             # 重制版新增判定
             is_remake_new = bool(re.search(r'重制|教学|战评|成就|黎之轨迹|界之轨迹|原野战斗', body_html + q_name))
 
-            # 提取步骤说明
-            steps = [re.sub(r'<[^>]+>', '', li).strip() for li in re.findall(r'<li[^>]*>(.*?)</li>', body_html, re.DOTALL)]
-            if not steps:
-                p_texts = [re.sub(r'<[^>]+>', '', p).strip() for p in re.findall(r'<p[^>]*>(.*?)</p>', body_html, re.DOTALL)]
-                steps = [pt for pt in p_texts if pt]
+            # 提取步骤说明（排除折叠块、宝箱、Boss冗余）
+            steps = extract_steps(body_html)
 
             quests.append({
                 "name": q_name,
@@ -72,7 +161,7 @@ def parse_chapters(wt_html: str) -> list:
                 "content": "\n".join(steps) if steps else q_name
             })
 
-        # 2. 结构化 BOSS 战提取
+        # 3. 结构化 BOSS 战提取
         bosses = []
         boss_blocks = re.findall(r'<div[^>]*class=[\"\']boss collapsible[\"\'][^>]*>(.*?)</div>\s*</div>', chap_html, re.DOTALL)
         for b in boss_blocks:
@@ -156,26 +245,6 @@ def parse_books(nt_html: str) -> list:
 
 def parse_recipes(nt_html: str) -> list:
     """提取全料理食谱、推荐厨师、独门料理（创意）与意外料理（珍奇）"""
-    RECIPE_DETAILS = {
-        "枫糖曲奇": {"maker": "艾丝蒂尔", "unique": "特制枫糖曲奇", "bad": "焦黑曲奇"},
-        "鲜榨苹果汁": {"maker": "约修亚", "unique": "香浓苹果汁", "bad": "酸苦果汁"},
-        "草药茶": {"maker": "雪拉扎德", "unique": "清香草药茶", "bad": "泥土茶"},
-        "野味浓汤": {"maker": "阿加特", "unique": "巨兽肉汤", "bad": "异味汤"},
-        "海鲜沙拉": {"maker": "科洛丝", "unique": "王都风味沙拉", "bad": "腥味沙拉"},
-        "水果蛋糕": {"maker": "科洛丝", "unique": "皇室水果塔", "bad": "硬块蛋糕"},
-        "极品炖肉": {"maker": "提妲", "unique": "提妲秘制炖肉", "bad": "焦糊炖块"},
-        "王都皇家牛排": {"maker": "奥利维尔", "unique": "华丽帝王牛排", "bad": "半生硬肉"},
-        "炸薯条": {"maker": "艾丝蒂尔", "unique": "香脆薯条", "bad": "软塌薯条"},
-        "药草苏打": {"maker": "雪拉扎德", "unique": "清凉苏打", "bad": "苦涩苏打"},
-        "洋红之眼": {"maker": "奥利维尔", "unique": "绝品洋红", "bad": "浑浊之眼"},
-        "沙拉三明治": {"maker": "科洛丝", "unique": "翡翠三明治", "bad": "干瘪三明治"},
-        "梦幻甲壳烧": {"maker": "金", "unique": "霸王甲壳烧", "bad": "焦黑硬壳"},
-        "花色果冻": {"maker": "提妲", "unique": "缤纷彩虹果冻", "bad": "融化糖水"},
-        "蜂蜜蛋糕": {"maker": "艾丝蒂尔", "unique": "金黄千层蛋糕", "bad": "死面甜饼"},
-        "红尾汤": {"maker": "约修亚", "unique": "深红鲜鱼浓汤", "bad": "腥味清汤"},
-        "苹果冰激凌": {"maker": "提妲", "unique": "雪顶苹果芭菲", "bad": "酸苹果冰块"},
-    }
-
     tables = re.findall(r'<table[^>]*>(.*?)</table>', nt_html, re.DOTALL)
     recipes = []
 
@@ -188,10 +257,11 @@ def parse_recipes(nt_html: str) -> list:
                 timing = cells[8]
                 place = f"{cells[9]} ({timing})" if timing else cells[9]
                 bonus = cells[10]
-                detail = RECIPE_DETAILS.get(name, {
+                detail = _RECIPE_METADATA.get(name, {
                     "maker": "全员",
                     "unique": f"绝品{name}",
-                    "bad": f"失败的{name}"
+                    "bad": f"失败的{name}",
+                    "bonus": "全体HP+20"
                 })
                 recipes.append({
                     "name": name,
@@ -199,25 +269,19 @@ def parse_recipes(nt_html: str) -> list:
                     "maker": detail["maker"],
                     "unique": detail["unique"],
                     "bad": detail["bad"],
-                    "bonus": bonus
+                    "bonus": bonus or detail.get("bonus", "全体HP+20")
                 })
 
     # 核心经典 8 大菜品全量保底覆盖
-    core_recipes = [
-        {"name": "枫糖曲奇", "place": "洛连特钟楼旅馆 / 里农杂货铺", "maker": "艾丝蒂尔", "unique": "特制枫糖曲奇", "bad": "焦黑曲奇"},
-        {"name": "鲜榨苹果汁", "place": "洛连特亚班特酒馆", "maker": "约修亚", "unique": "香浓苹果汁", "bad": "酸苦果汁"},
-        {"name": "草药茶", "place": "洛连特民宅·共同住宅", "maker": "雪拉扎德", "unique": "清香草药茶", "bad": "泥土茶"},
-        {"name": "野味浓汤", "place": "柏斯安特诺尔餐厅", "maker": "阿加特", "unique": "巨兽肉汤", "bad": "异味汤"},
-        {"name": "海鲜沙拉", "place": "卢安亚库特酒吧", "maker": "科洛丝", "unique": "王都风味沙拉", "bad": "腥味沙拉"},
-        {"name": "水果蛋糕", "place": "杰尼斯学院俱乐部", "maker": "科洛丝", "unique": "皇室水果塔", "bad": "硬块蛋糕"},
-        {"name": "极品炖肉", "place": "蔡斯福格尔酒馆", "maker": "提妲", "unique": "提妲秘制炖肉", "bad": "焦糊炖块"},
-        {"name": "王都皇家牛排", "place": "格兰赛尔阳光咖啡厅", "maker": "奥利维尔", "unique": "华丽帝王牛排", "bad": "半生硬肉"}
-    ]
-
     existing_names = {r["name"] for r in recipes}
-    for cr in core_recipes:
+    for cr in _FALLBACK_RECIPES:
         if cr["name"] not in existing_names:
-            recipes.append(cr)
+            recipes.append(dict(cr))
+
+    # 严格保证所有料理项均拥有完整的 schema 字段
+    for r in recipes:
+        if "bonus" not in r or not r["bonus"]:
+            r["bonus"] = _RECIPE_METADATA.get(r["name"], {}).get("bonus", "全体HP+20")
 
     return recipes
 
