@@ -11,7 +11,7 @@ build/
 # Scraped cache files
 data/cache/*.html
 
-# Distribution PDFs (ignore generated PDFs, keep tracked deliverables)
+# Distribution PDFs (track all 12 core walkthrough deliverables)
 dist/*.pdf
-!dist/空之轨迹_the_1st_重制版_100全要素详细攻略.pdf
+!dist/*_100全要素详细攻略.pdf
 

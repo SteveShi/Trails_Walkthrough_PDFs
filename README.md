@@ -17,22 +17,22 @@ The visual design closely follows the iconic **Bracer Guild Tactical Orbment Ter
 
 ## 🎯 Deliverables (12 Independent PDFs)
 
-Independent high-resolution vector PDFs for all 12 games are generated in the [`dist/`](dist/) directory, totaling **672 pages** and approximately **96 MB**:
+Independent high-resolution vector PDFs for all 12 games are generated in the [`dist/`](dist/) directory, totaling **910 pages** and approximately **156 MB**:
 
 | No. | Saga & Game Title | Max Points | Pages | PDF Size | File Deliverable |
 | :---: | :--- | :---: | :---: | :---: | :--- |
 | **01** | **Trails in the Sky the 1st (Remake)** | 368 BP | 52 p. | 7.91 MB | [`空之轨迹_the_1st_重制版_100全要素详细攻略.pdf`](dist/空之轨迹_the_1st_重制版_100全要素详细攻略.pdf) |
-| **02** | **Trails in the Sky the 2nd (Remake)** | 382 BP | 26 p. | 4.59 MB | [`空之轨迹_the_2nd_重制版_100全要素详细攻略.pdf`](dist/空之轨迹_the_2nd_重制版_100全要素详细攻略.pdf) |
-| **03** | **Trails from Zero** | 380 DP | 31 p. | 5.19 MB | [`零之轨迹_100全要素详细攻略.pdf`](dist/零之轨迹_100全要素详细攻略.pdf) |
-| **04** | **Trails to Azure** | 405 DP | 51 p. | 7.39 MB | [`碧之轨迹_100全要素详细攻略.pdf`](dist/碧之轨迹_100全要素详细攻略.pdf) |
-| **05** | **Trails of Cold Steel I** | 440 AP | 42 p. | 6.76 MB | [`闪之轨迹1_100全要素详细攻略.pdf`](dist/闪之轨迹1_100全要素详细攻略.pdf) |
-| **06** | **Trails of Cold Steel II** | 315 AP | 48 p. | 7.26 MB | [`闪之轨迹2_100全要素详细攻略.pdf`](dist/闪之轨迹2_100全要素详细攻略.pdf) |
-| **07** | **Trails of Cold Steel III** | 417 AP | 56 p. | 8.25 MB | [`闪之轨迹3_100全要素详细攻略.pdf`](dist/闪之轨迹3_100全要素详细攻略.pdf) |
-| **08** | **Trails of Cold Steel IV** | 353 AP | 73 p. | 10.20 MB | [`闪之轨迹4_100全要素详细攻略.pdf`](dist/闪之轨迹4_100全要素详细攻略.pdf) |
-| **09** | **Trails into Reverie** | Platinum | 90 p. | 11.67 MB | [`创之轨迹_100全要素详细攻略.pdf`](dist/创之轨迹_100全要素详细攻略.pdf) |
-| **10** | **Trails through Daybreak I** | 405 SP | 57 p. | 8.56 MB | [`黎之轨迹1_100全要素详细攻略.pdf`](dist/黎之轨迹1_100全要素详细攻略.pdf) |
-| **11** | **Trails through Daybreak II** | 408 SP | 63 p. | 9.04 MB | [`黎之轨迹2_100全要素详细攻略.pdf`](dist/黎之轨迹2_100全要素详细攻略.pdf) |
-| **12** | **Kai no Kiseki -Farewell, O Zemuria-** | 415 SP | 83 p. | 8.91 MB | [`界之轨迹_100全要素详细攻略.pdf`](dist/界之轨迹_100全要素详细攻略.pdf) |
+| **02** | **Trails in the Sky the 2nd (Remake)** | 382 BP | 26 p. | 6.68 MB | [`空之轨迹_the_2nd_重制版_100全要素详细攻略.pdf`](dist/空之轨迹_the_2nd_重制版_100全要素详细攻略.pdf) |
+| **03** | **Trails from Zero** | 380 DP | 78 p. | 9.42 MB | [`零之轨迹_100全要素详细攻略.pdf`](dist/零之轨迹_100全要素详细攻略.pdf) |
+| **04** | **Trails to Azure** | 405 DP | 51 p. | 11.71 MB | [`碧之轨迹_100全要素详细攻略.pdf`](dist/碧之轨迹_100全要素详细攻略.pdf) |
+| **05** | **Trails of Cold Steel I** | 440 AP | 87 p. | 9.89 MB | [`闪之轨迹1_100全要素详细攻略.pdf`](dist/闪之轨迹1_100全要素详细攻略.pdf) |
+| **06** | **Trails of Cold Steel II** | 315 AP | 48 p. | 10.35 MB | [`闪之轨迹2_100全要素详细攻略.pdf`](dist/闪之轨迹2_100全要素详细攻略.pdf) |
+| **07** | **Trails of Cold Steel III** | 417 AP | 56 p. | 13.74 MB | [`闪之轨迹3_100全要素详细攻略.pdf`](dist/闪之轨迹3_100全要素详细攻略.pdf) |
+| **08** | **Trails of Cold Steel IV** | 353 AP | 73 p. | 18.47 MB | [`闪之轨迹4_100全要素详细攻略.pdf`](dist/闪之轨迹4_100全要素详细攻略.pdf) |
+| **09** | **Trails into Reverie** | Platinum | 90 p. | 20.82 MB | [`创之轨迹_100全要素详细攻略.pdf`](dist/创之轨迹_100全要素详细攻略.pdf) |
+| **10** | **Trails through Daybreak I** | 405 SP | 57 p. | 15.20 MB | [`黎之轨迹1_100全要素详细攻略.pdf`](dist/黎之轨迹1_100全要素详细攻略.pdf) |
+| **11** | **Trails through Daybreak II** | 408 SP | 63 p. | 14.92 MB | [`黎之轨迹2_100全要素详细攻略.pdf`](dist/黎之轨迹2_100全要素详细攻略.pdf) |
+| **12** | **Kai no Kiseki -Farewell, O Zemuria-** | 415 SP | 229 p. | 16.61 MB | [`界之轨迹_100全要素详细攻略.pdf`](dist/界之轨迹_100全要素详细攻略.pdf) |
 
 ### Every Guide Standardly Features:
 1. **Cover & Tactical Terminal TOC**: Immersive tech terminal cover with platinum achievement targets (BP/DP/AP/RP/SP) and direct navigation anchors.
