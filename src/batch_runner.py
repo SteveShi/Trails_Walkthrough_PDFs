@@ -4,6 +4,7 @@
 
 import os
 import sys
+import re
 import time
 import subprocess
 from src.games_config import GAMES_CONFIG
@@ -11,7 +12,24 @@ from src.universal_builder import render_game_html
 from src.pdf_exporter import export_html_to_pdf
 
 def get_pdf_page_count(pdf_path: str) -> int:
-    """获取 PDF 总页数 (优先匹配 /Count，兼容未压缩的 /Type /Page)"""
+    """获取 PDF 总页数 (优先使用 macOS mdls，兼容二进制流扫描)"""
+    # 1. 尝试 macOS 原生命令 mdls
+    try:
+        res = subprocess.run(
+            ["mdls", "-name", "kMDItemNumberOfPages", pdf_path],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            timeout=5
+        )
+        if res.returncode == 0:
+            m = re.search(r'kMDItemNumberOfPages\s*=\s*(\d+)', res.stdout)
+            if m:
+                return int(m.group(1))
+    except Exception:
+        pass
+
+    # 2. 尝试读取二进制 /Count
     try:
         with open(pdf_path, 'rb') as f:
             content = f.read()
@@ -23,6 +41,7 @@ def get_pdf_page_count(pdf_path: str) -> int:
             return type_pages
     except Exception:
         pass
+
     return -1
 
 def run_batch():
@@ -51,8 +70,7 @@ def run_batch():
         print(f"\n[{idx}/12] 正在生成《{title}》...")
         t0 = time.time()
 
-        # 如果是 sora_1st，我们优先保留此前经过深度解析定制的最高清版本，或用 universal_builder 统一维护
-        # 无论哪种，都确保输出高质量完整的 PDF
+        # 如果是 sora_1st，保留此前经过深度解析定制的最高清标杆版本
         if gid == "sora_1st" and os.path.exists(out_pdf) and os.path.getsize(out_pdf) > 5000000:
             pages = get_pdf_page_count(out_pdf)
             size_mb = os.path.getsize(out_pdf) / (1024 * 1024)
