@@ -6,6 +6,7 @@
 import os
 import re
 import html
+import json
 from typing import Dict, List, Any
 
 def clean_tag(s: str) -> str:
@@ -315,8 +316,28 @@ def render_game_html(game_cfg: Dict[str, Any], css_content: str) -> str:
         wt_html = f.read()
     with open(nt_path, "r", encoding="utf-8", errors="ignore") as f:
         nt_html = f.read()
+    gid = game_cfg["id"]
+    complete_notes_path = os.path.abspath(os.path.join(os.path.dirname(__file__), f"../data/notes_complete/{gid}_notes.json"))
+    
+    notes_data = {"books": [], "recipes": [], "fishes": []}
+    if os.path.exists(complete_notes_path):
+        try:
+            with open(complete_notes_path, "r", encoding="utf-8") as fp:
+                notes_data = json.load(fp)
+        except Exception as e:
+            pass
+            
+    # 如果某项为空，从 nt_html 兜底补充
+    fallback_notes = parse_game_notes(nt_html)
+    for k in ["books", "recipes", "fishes"]:
+        if not notes_data.get(k):
+            notes_data[k] = fallback_notes.get(k, [])
 
-    notes_data = parse_game_notes(nt_html)
+    # 规范化序号
+    for k in ["books", "recipes", "fishes"]:
+        for idx, item in enumerate(notes_data[k], 1):
+            item["id"] = str(idx)
+
     chapters_data = parse_game_walkthrough(wt_html, game_cfg["point_name"])
 
     title = html.escape(game_cfg["title"])
