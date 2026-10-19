@@ -276,7 +276,7 @@ def parse_game_walkthrough(wt_html: str, point_name: str) -> List[Dict[str, Any]
     """解析全剧情章节、主支线任务、探索流程、宝箱与 BOSS 战"""
     # 1. 识别手风琴容器
     acc_items = re.findall(
-        r'<div[^>]*class=[\"\'][^\"\']*elementor-accordion-item[^\"\']*[\"\'][^>]*>(.*?)</div>\s*(?=<div[^>]*class=[\"\'][^\"\']*elementor-accordion-item|\Z)',
+        r'<div[^>]*class=[\"\'][^\"\']*elementor-accordion-item[^\"\']*[\"\'][^>]*>(.*?)(?=<div[^>]*class=[\"\'][^\"\']*elementor-accordion-item|\Z)',
         wt_html,
         re.DOTALL
     )
@@ -290,7 +290,7 @@ def parse_game_walkthrough(wt_html: str, point_name: str) -> List[Dict[str, Any]
                 t = clean_tag(m_t.group(1))
                 c = m_c.group(1)
                 # 过滤前置须知/非章节
-                if not any(k in t for k in ['前言', '写在开头', '须知', '注意事项', '继承特典', '前作继承', '开关', '目录', '不再更新', '请使用']):
+                if not any(k in t for k in ['前言', '写在开头', '须知', '注意事项', '继承特典', '前作继承', '继承通关存档', '开关', '目录', '不再更新', '请使用']):
                     raw_chapters.append((t, c))
     else:
         # 界之轨迹等采用 details 容器

@@ -1,5 +1,5 @@
 """
-轨迹系列 12 部作品元数据配置表
+轨迹系列 13 部作品元数据配置表
 """
 
 GAMES_CONFIG = [
@@ -30,6 +30,20 @@ GAMES_CONFIG = [
         "wt_cache": "data/cache/sora_2nd_wt.html",
         "nt_cache": "data/cache/sora_2nd_nt.html",
         "output_pdf": "dist/空之轨迹_the_2nd_重制版_100全要素详细攻略.pdf"
+    },
+    {
+        "id": "sora_3rd",
+        "title": "英雄传说 空之轨迹 the 3rd",
+        "subtitle": "The Legend of Heroes: Trails in the Sky the 3rd",
+        "era": "利贝尔篇 · 影之国与方石",
+        "org_name": "七曜教会·封圣省星杯骑士团",
+        "point_name": "BP",
+        "max_points": "全月门/星门/太阳之门制霸 · 影之国白金达成",
+        "theme_color": "#2c1b4d",
+        "accent_color": "#00d2d3",
+        "wt_cache": "data/cache/sora_3rd_wt.html",
+        "nt_cache": "data/cache/sora_3rd_nt.html",
+        "output_pdf": "dist/空之轨迹_the_3rd_100全要素详细攻略.pdf"
     },
     {
         "id": "zero",

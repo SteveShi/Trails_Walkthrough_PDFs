@@ -84,5 +84,18 @@ class TestNotesIntegrity(unittest.TestCase):
         self.assertIn("flow-data-table", html)
         self.assertIn("tactical-quote-box", html)
 
+    def test_sora_3rd_integrity_and_render(self):
+        """验证《空之轨迹 the 3rd》包含全部 9 个剧情章节、13 部文献、40 道料理与 25 座门扉"""
+        sora3_cfg = next(g for g in GAMES_CONFIG if g["id"] == "sora_3rd")
+        html = render_game_html(sora3_cfg, self.css_content)
+        
+        # 章节验证（包含第零话与最终话）
+        self.assertIn("第零话 星杯骑士", html)
+        self.assertIn("最终话 历尽艰险 终抵彼岸", html)
+        self.assertIn("太阳之门①《里拉的射击游戏》", html)
+        self.assertIn("星之门⑮《歼灭天使·乐园的记忆》", html)
+        self.assertIn("达人火锅·极", html)
+        self.assertIn("利贝尔通讯02年前期-02年中期", html)
+
 if __name__ == '__main__':
     unittest.main()

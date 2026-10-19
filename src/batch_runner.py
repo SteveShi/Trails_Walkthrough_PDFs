@@ -45,8 +45,9 @@ def get_pdf_page_count(pdf_path: str) -> int:
     return -1
 
 def run_batch():
+    total_count = len(GAMES_CONFIG)
     print("=" * 70)
-    print("      🚀 轨迹系列 12 部全要素白金攻略 PDF 自动化生成引擎 🚀")
+    print(f"      🚀 轨迹系列 {total_count} 部全要素白金攻略 PDF 自动化生成引擎 🚀")
     print("=" * 70)
 
     css_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../templates/style.css"))
@@ -67,7 +68,7 @@ def run_batch():
         out_pdf = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", cfg["output_pdf"]))
         html_file = os.path.join(build_dir, f"{gid}.html")
 
-        print(f"\n[{idx}/12] 正在生成《{title}》...")
+        print(f"\n[{idx}/{total_count}] 正在生成《{title}》...")
         t0 = time.time()
 
         # 如果是 sora_1st，保留此前经过深度解析定制的最高清标杆版本
@@ -123,7 +124,7 @@ def run_batch():
 
     total_elapsed = time.time() - total_start
     print("\n" + "=" * 70)
-    print(f"✨ 全套 12 部作品批处理完成！总耗时: {total_elapsed:.1f} 秒")
+    print(f"✨ 全套 {total_count} 部作品批处理完成！总耗时: {total_elapsed:.1f} 秒")
     print("=" * 70)
     print(f"{'序号':<4} | {'作品名称':<36} | {'页数':<6} | {'文件大小':<10} | {'状态'}")
     print("-" * 70)
@@ -138,7 +139,7 @@ def run_batch():
         print(f" {r['index']:<3} | {r['title']:<34} | {r['pages']:<6} | {r['size_mb']:<6.2f} MB | {status_str}")
 
     print("-" * 70)
-    print(f"汇总统计: 12 部作品攻略总页数: {total_pages} 页 | 全部成功: {all_success}")
+    print(f"汇总统计: {total_count} 部作品攻略总页数: {total_pages} 页 | 全部成功: {all_success}")
     print("=" * 70)
     return 0 if all_success else 1
 
