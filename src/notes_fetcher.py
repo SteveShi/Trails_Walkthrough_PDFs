@@ -60,7 +60,8 @@ GAMES_NOTES_MAP = [
         "tables": {
             "fishes": {"wpid": 17, "name_col": "鱼名", "spot_col": "垂钓地点", "bait_col": "鱼竿", "drop_col": "掉落物"},
             "books": {"wpid": 22, "name_col": "书籍名称", "type_col": "书籍分类", "time_col": "获取时间", "method_col": "获取方式"},
-            "recipes": {"wpid": 13, "name_col": "料理名称", "time_col": "获得时间", "method_col": "获得方式", "bonus_col": "独门料理人"}
+            "recipes": {"wpid": 13, "name_col": "料理名称", "time_col": "获得时间", "method_col": "获得方式", "bonus_col": "独门料理人"},
+            "characters": {"wpid": 23, "category_col": "人物分类", "name_col": "人物名称", "entry_col": "词条名称", "time_col": "获取时间", "method_col": "获取方式"}
         }
     },
     {
@@ -70,7 +71,8 @@ GAMES_NOTES_MAP = [
         "tables": {
             "fishes": {"wpid": 32, "name_col": "鱼名", "spot_col": "钓鱼点", "bait_col": "钓竿", "drop_col": "掉落物"},
             "books": {"wpid": 25, "name_col": "书籍名称", "type_col": "书籍分类", "time_col": "获取时间", "method_col": "获取方式"},
-            "recipes": {"wpid": 14, "name_col": "料理名称", "time_col": "获得时间", "method_col": "获得方式", "bonus_col": "独门料理人"}
+            "recipes": {"wpid": 14, "name_col": "料理名称", "time_col": "获得时间", "method_col": "获得方式", "bonus_col": "独门料理人"},
+            "characters": {"wpid": 24, "category_col": "人物分类", "name_col": "人物名称", "entry_col": "词条名称", "time_col": "获取时间", "method_col": "获取方式"}
         }
     },
     {
@@ -80,7 +82,8 @@ GAMES_NOTES_MAP = [
         "tables": {
             "fishes": {"wpid": 33, "name_col": "鱼名", "spot_col": "钓鱼点", "bait_col": "钓鱼点", "drop_col": "掉落物"},
             "books": {"wpid": 28, "name_col": "书籍名称", "type_col": "书籍分类", "time_col": "获取时间", "method_col": "获取方式"},
-            "recipes": {"wpid": 19, "name_col": "料理名称", "time_col": "获取时间", "method_col": "获取方式", "bonus_col": "独门料理人"}
+            "recipes": {"wpid": 19, "name_col": "料理名称", "time_col": "获取时间", "method_col": "获取方式", "bonus_col": "独门料理人"},
+            "characters": {"wpid": 30, "category_col": "人物分类", "name_col": "人物名称", "entry_col": "词条名称", "time_col": "获取时间", "method_col": "获取方式"}
         }
     },
     {
@@ -90,7 +93,8 @@ GAMES_NOTES_MAP = [
         "tables": {
             "fishes": {"wpid": 34, "name_col": "鱼名", "spot_col": "钓鱼点", "bait_col": "钓鱼点", "drop_col": "掉落物"},
             "books": {"wpid": 29, "name_col": "书籍名称", "type_col": "书籍分类", "time_col": "获取时间", "method_col": "获取方式"},
-            "recipes": {"wpid": 20, "name_col": "料理名称", "time_col": "获取时间", "method_col": "获取方式", "bonus_col": "独门料理人"}
+            "recipes": {"wpid": 20, "name_col": "料理名称", "time_col": "获取时间", "method_col": "获取方式", "bonus_col": "独门料理人"},
+            "characters": {"wpid": 31, "category_col": "人物分类", "name_col": "人物名称", "entry_col": "词条名称", "time_col": "获取时间", "method_col": "获取方式"}
         }
     },
     {
@@ -100,7 +104,8 @@ GAMES_NOTES_MAP = [
         "tables": {
             "fishes": {"wpid": 112, "name_col": "鱼名", "spot_col": "钓鱼点", "bait_col": "钓鱼点", "drop_col": "掉落物"},
             "books": {"wpid": 113, "name_col": "书籍名称", "type_col": "书籍分类", "time_col": "获取时间", "method_col": "获取方式"},
-            "recipes": {"wpid": 114, "name_col": "料理名称", "time_col": "获得时间", "method_col": "获得方式", "bonus_col": "独门料理人"}
+            "recipes": {"wpid": 114, "name_col": "料理名称", "time_col": "获得时间", "method_col": "获得方式", "bonus_col": "独门料理人"},
+            "characters": {"wpid": 116, "category_col": "人物分类", "name_col": "人物名称", "entry_col": "词条名称", "time_col": "获取时间", "method_col": "获取方式"}
         }
     },
     {
@@ -202,7 +207,8 @@ def sync_single_game(game_cfg: Dict[str, Any]) -> Dict[str, Any]:
     result: Dict[str, List[Any]] = {
         "books": [],
         "recipes": [],
-        "fishes": []
+        "fishes": [],
+        "characters": []
     }
     
     # 处理各个配置表格
@@ -304,7 +310,39 @@ def sync_single_game(game_cfg: Dict[str, Any]) -> Dict[str, Any]:
                     "drop": f_drop
                 })
 
-    print(f"  ✨ 整理统计: 书籍 {len(result['books'])} 本 | 料理 {len(result['recipes'])} 道 | 钓鱼 {len(result['fishes'])} 种")
+        elif category == "characters":
+            idx_cat = get_col_idx(tcfg.get("category_col", "分类"), 1)
+            idx_name = get_col_idx(tcfg.get("name_col", "人物名称"), 2)
+            idx_entry = get_col_idx(tcfg.get("entry_col", "词条名称"), 3)
+            idx_time = get_col_idx(tcfg.get("time_col", "获取时间"), 4)
+            idx_method = get_col_idx(tcfg.get("method_col", "获取方式"), 5)
+            
+            for row in raw_rows:
+                if len(row) <= idx_entry:
+                    continue
+                c_name = clean_val(row[idx_name]) if len(row) > idx_name else ""
+                c_entry = clean_val(row[idx_entry]) if len(row) > idx_entry else ""
+                if not c_name or not c_entry:
+                    continue
+                key = f"{c_name}_{c_entry}"
+                if key in seen_names:
+                    continue
+                seen_names.add(key)
+                
+                c_cat = clean_val(row[idx_cat]) if len(row) > idx_cat else ""
+                c_time = clean_val(row[idx_time]) if len(row) > idx_time else ""
+                c_method = clean_val(row[idx_method]) if len(row) > idx_method else ""
+                
+                result["characters"].append({
+                    "id": str(len(result["characters"]) + 1),
+                    "category": c_cat,
+                    "name": c_name,
+                    "entry": c_entry,
+                    "time": c_time,
+                    "method": c_method
+                })
+
+    print(f"  ✨ 整理统计: 书籍 {len(result['books'])} 本 | 料理 {len(result['recipes'])} 道 | 钓鱼 {len(result['fishes'])} 种 | 人物笔记 {len(result.get('characters', []))} 条")
     
     out_file = os.path.join(OUTPUT_DIR, f"{gid}_notes.json")
     with open(out_file, "w", encoding="utf-8") as fp:

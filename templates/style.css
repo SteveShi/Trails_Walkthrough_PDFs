@@ -767,3 +767,109 @@ table.data-table tr:hover {
     font-weight: 700;
 }
 
+/* 流程内嵌表格（任务统计、问答选择、进度结算） */
+.flow-table-container {
+    margin: 8px 0 12px 0;
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+
+table.flow-data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8.5pt;
+    line-height: 1.45;
+    background: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+table.flow-data-table thead {
+    display: table-header-group;
+}
+
+table.flow-data-table th {
+    background: #1e293b;
+    color: #ffffff;
+    font-weight: 700;
+    text-align: left;
+    padding: 5px 8px;
+    border-bottom: 1px solid #94a3b8;
+    font-size: 8pt;
+}
+
+table.flow-data-table td {
+    padding: 4px 8px;
+    border-bottom: 1px solid #e2e8f0;
+    color: #334155;
+    vertical-align: top;
+}
+
+table.flow-data-table tr:nth-child(even) td {
+    background-color: #f8fafc;
+}
+
+table.flow-data-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* 战术引用栏与提示框（Quote / Callout） */
+.tactical-quote-box {
+    background: #f1f5f9;
+    border-left: 4px solid #3b82f6;
+    border-radius: 0 4px 4px 0;
+    padding: 8px 12px;
+    margin: 8px 0 10px 0;
+    font-size: 8.8pt;
+    color: #1e293b;
+    line-height: 1.5;
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+
+.tactical-quote-box.quote-alert {
+    background: #fef2f2;
+    border-left-color: #ef4444;
+    color: #991b1b;
+}
+
+.tactical-quote-box.quote-tips {
+    background: #f0fdf4;
+    border-left-color: #22c55e;
+    color: #166534;
+}
+
+.quote-header {
+    font-weight: 700;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 8.8pt;
+}
+
+.quote-body {
+    font-size: 8.5pt;
+}
+
+/* 人物笔记专属表格样式 */
+table.character-notes-table th {
+    background: #1e1e24;
+}
+
+table.character-notes-table td {
+    vertical-align: middle;
+}
+
+.character-category-tag {
+    background: #e0e7ff;
+    color: #3730a3;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 7.5pt;
+    display: inline-block;
+}
+
+

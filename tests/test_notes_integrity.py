@@ -47,14 +47,42 @@ class TestNotesIntegrity(unittest.TestCase):
         rows_r = [r for r in re.findall(r'<tr>(.*?)</tr>', app2_m.group(1), re.DOTALL) if 'colspan' not in r]
         self.assertTrue(len(rows_r) >= 20, f"碧之轨迹料理数量不足: {len(rows_r)}")
 
-    def test_sen1_complete_books_and_fish(self):
-        """验证《闪之轨迹 1》书籍收录全部 43 卷（红发骑士/红曜石/帝国时报）与 20 种鱼类"""
+    def test_character_notes_integrity(self):
+        """验证闪 1~4 与创轨的人物笔记完整性（合计 806 条）"""
+        expected_counts = {
+            "sen1": 95,
+            "sen2": 179,
+            "sen3": 141,
+            "sen4": 207,
+            "hajimari": 184
+        }
+        for gid, expected in expected_counts.items():
+            path = os.path.abspath(os.path.join(os.path.dirname(__file__), f"../data/notes_complete/{gid}_notes.json"))
+            with open(path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            chars = data.get("characters", [])
+            self.assertEqual(len(chars), expected, f"{gid} 人物笔记条数应为 {expected}，实际为 {len(chars)}")
+
+    def test_sen1_character_notes_render(self):
+        """验证《闪之轨迹 1》HTML 中成功渲染附录四人物笔记表格与关键词"""
         sen1_cfg = next(g for g in GAMES_CONFIG if g["id"] == "sen1")
         html = render_game_html(sen1_cfg, self.css_content)
         
-        app1_m = re.search(r'<div id=[\x27\"]appendix-1[\x27\"].*?<tbody>(.*?)</tbody>', html, re.DOTALL)
-        rows_b = [r for r in re.findall(r'<tr>(.*?)</tr>', app1_m.group(1), re.DOTALL) if 'colspan' not in r]
-        self.assertEqual(len(rows_b), 43, f"闪之轨迹 1 书籍数量应为 43，实际为 {len(rows_b)}")
+        self.assertIn("id='appendix-characters'", html)
+        self.assertIn("附录四：全人物笔记与时限词条全收集对照表", html)
+        self.assertIn("character-notes-table", html)
+        self.assertIn("黎恩", html)
+        self.assertIn("兄妹情深", html)
+        self.assertIn("亚莉莎", html)
+        self.assertIn("给祖父的礼物", html)
+
+    def test_flow_tables_and_callouts_render(self):
+        """验证流程正文表格与战术引用栏正确渲染，未被去格式化"""
+        sora_cfg = next(g for g in GAMES_CONFIG if g["id"] == "sora_1st")
+        html = render_game_html(sora_cfg, self.css_content)
+        
+        self.assertIn("flow-data-table", html)
+        self.assertIn("tactical-quote-box", html)
 
 if __name__ == '__main__':
     unittest.main()

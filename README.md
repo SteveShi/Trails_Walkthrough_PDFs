@@ -17,31 +17,33 @@ The visual design closely follows the iconic **Bracer Guild Tactical Orbment Ter
 
 ## 🎯 Deliverables (12 Independent PDFs)
 
-Independent high-resolution vector PDFs for all 12 games are generated in the [`dist/`](dist/) directory, totaling **1,667 pages** and approximately **167 MB** with 100% complete, un-truncated collectibles (all novel volumes, limited periodicals, cooking recipes, and fishing spots):
+Independent high-resolution vector PDFs for all 12 games are generated in the [`dist/`](dist/) directory, totaling **1,689 pages** with 100% complete, un-truncated collectibles (all novel volumes, limited periodicals, cooking recipes, fishing spots, and complete Character Notes for Cold Steel 1–4 and Reverie):
 
 | No. | Saga & Game Title | Max Points | Pages | PDF Size | File Deliverable |
 | :---: | :--- | :---: | :---: | :---: | :--- |
 | **01** | **Trails in the Sky the 1st (Remake)** | 368 BP | 52 p. | 7.91 MB | [`空之轨迹_the_1st_重制版_100全要素详细攻略.pdf`](dist/空之轨迹_the_1st_重制版_100全要素详细攻略.pdf) |
-| **02** | **Trails in the Sky the 2nd (Remake)** | 382 BP | 48 p. | 7.06 MB | [`空之轨迹_the_2nd_重制版_100全要素详细攻略.pdf`](dist/空之轨迹_the_2nd_重制版_100全要素详细攻略.pdf) |
-| **03** | **Trails from Zero** | 380 DP | 80 p. | 9.58 MB | [`零之轨迹_100全要素详细攻略.pdf`](dist/零之轨迹_100全要素详细攻略.pdf) |
-| **04** | **Trails to Azure** | 405 DP | 118 p. | 11.81 MB | [`碧之轨迹_100全要素详细攻略.pdf`](dist/碧之轨迹_100全要素详细攻略.pdf) |
-| **05** | **Trails of Cold Steel I** | 440 AP | 87 p. | 10.02 MB | [`闪之轨迹1_100全要素详细攻略.pdf`](dist/闪之轨迹1_100全要素详细攻略.pdf) |
-| **06** | **Trails of Cold Steel II** | 315 AP | 88 p. | 10.58 MB | [`闪之轨迹2_100全要素详细攻略.pdf`](dist/闪之轨迹2_100全要素详细攻略.pdf) |
-| **07** | **Trails of Cold Steel III** | 417 AP | 135 p. | 13.90 MB | [`闪之轨迹3_100全要素详细攻略.pdf`](dist/闪之轨迹3_100全要素详细攻略.pdf) |
-| **08** | **Trails of Cold Steel IV** | 353 AP | 214 p. | 18.71 MB | [`闪之轨迹4_100全要素详细攻略.pdf`](dist/闪之轨迹4_100全要素详细攻略.pdf) |
-| **09** | **Trails into Reverie** | Platinum | 254 p. | 20.97 MB | [`创之轨迹_100全要素详细攻略.pdf`](dist/创之轨迹_100全要素详细攻略.pdf) |
-| **10** | **Trails through Daybreak I** | 405 SP | 180 p. | 15.81 MB | [`黎之轨迹1_100全要素详细攻略.pdf`](dist/黎之轨迹1_100全要素详细攻略.pdf) |
-| **11** | **Trails through Daybreak II** | 408 SP | 182 p. | 15.78 MB | [`黎之轨迹2_100全要素详细攻略.pdf`](dist/黎之轨迹2_100全要素详细攻略.pdf) |
-| **12** | **Kai no Kiseki -Farewell, O Zemuria-** | 415 SP | 229 p. | 16.77 MB | [`界之轨迹_100全要素详细攻略.pdf`](dist/界之轨迹_100全要素详细攻略.pdf) |
+| **02** | **Trails in the Sky the 2nd (Remake)** | 382 BP | 50 p. | 7.07 MB | [`空之轨迹_the_2nd_重制版_100全要素详细攻略.pdf`](dist/空之轨迹_the_2nd_重制版_100全要素详细攻略.pdf) |
+| **03** | **Trails from Zero** | 380 DP | 80 p. | 9.73 MB | [`零之轨迹_100全要素详细攻略.pdf`](dist/零之轨迹_100全要素详细攻略.pdf) |
+| **04** | **Trails to Azure** | 405 DP | 118 p. | 11.88 MB | [`碧之轨迹_100全要素详细攻略.pdf`](dist/碧之轨迹_100全要素详细攻略.pdf) |
+| **05** | **Trails of Cold Steel I** | 440 AP | 87 p. | 10.52 MB | [`闪之轨迹1_100全要素详细攻略.pdf`](dist/闪之轨迹1_100全要素详细攻略.pdf) |
+| **06** | **Trails of Cold Steel II** | 315 AP | 89 p. | 11.77 MB | [`闪之轨迹2_100全要素详细攻略.pdf`](dist/闪之轨迹2_100全要素详细攻略.pdf) |
+| **07** | **Trails of Cold Steel III** | 417 AP | 137 p. | 14.21 MB | [`闪之轨迹3_100全要素详细攻略.pdf`](dist/闪之轨迹3_100全要素详细攻略.pdf) |
+| **08** | **Trails of Cold Steel IV** | 353 AP | 216 p. | 19.26 MB | [`闪之轨迹4_100全要素详细攻略.pdf`](dist/闪之轨迹4_100全要素详细攻略.pdf) |
+| **09** | **Trails into Reverie** | Platinum | 255 p. | 21.83 MB | [`创之轨迹_100全要素详细攻略.pdf`](dist/创之轨迹_100全要素详细攻略.pdf) |
+| **10** | **Trails through Daybreak I** | 405 SP | 185 p. | 15.84 MB | [`黎之轨迹1_100全要素详细攻略.pdf`](dist/黎之轨迹1_100全要素详细攻略.pdf) |
+| **11** | **Trails through Daybreak II** | 408 SP | 190 p. | 16.02 MB | [`黎之轨迹2_100全要素详细攻略.pdf`](dist/黎之轨迹2_100全要素详细攻略.pdf) |
+| **12** | **Kai no Kiseki -Farewell, O Zemuria-** | 415 SP | 230 p. | 15.36 MB | [`界之轨迹_100全要素详细攻略.pdf`](dist/界之轨迹_100全要素详细攻略.pdf) |
 
 ### Every Guide Standardly Features:
 1. **Cover & Tactical Terminal TOC**: Immersive tech terminal cover with platinum achievement targets (BP/DP/AP/RP/SP) and direct navigation anchors.
 2. **Comprehensive Chapter Walkthrough**: Complete coverage of main story, side quests, hidden dialog branches, red missable alerts, and field action / command battle strategies.
-3. **Boss Tactical Dossiers**: Weakness effectiveness tables (Earth, Water, Fire, Wind, Time, Space, Mirage), abnormal status immunities, and S-Craft burst recommendations.
-4. **Appendix 1: Complete Books & Periodicals**: Novels, limited-time magazines, newspapers, and academic documents with ultimate weapon exchange indicators.
-5. **Appendix 2: Full Cooking & Recipe List**: Recipe names, locations, recommended chefs, master dishes (unique), failure dishes, and stat bonuses.
-6. **Appendix 3: Complete Fishing & Tackle Compendium**: Rod tiers, bait pairings, fishing grounds, and sepith/item drops.
-7. **Appendix 4: NG+ Carryover & Ultimate Superbosses**: Carryover guide and high-difficulty superboss tactics.
+3. **Structured In-Flow Tables & Tactical Callouts**: Quest reward summaries, Q&A choices, and LGC alignment progression are displayed in crisp JRPG terminal tables, while tactical Tips and time-limited Alerts are highlighted with dedicated callout boxes.
+4. **Boss Tactical Dossiers**: Weakness effectiveness tables (Earth, Water, Fire, Wind, Time, Space, Mirage), abnormal status immunities, and S-Craft burst recommendations.
+5. **Appendix 1: Complete Books & Periodicals**: Novels, limited-time magazines, newspapers, and academic documents with ultimate weapon exchange indicators.
+6. **Appendix 2: Full Cooking & Recipe List**: Recipe names, locations, recommended chefs, master dishes (unique), failure dishes, and stat bonuses.
+7. **Appendix 3: Complete Fishing & Tackle Compendium**: Rod tiers, bait pairings, fishing grounds, and sepith/item drops.
+8. **Appendix 4: Complete Character Notes (Exclusive to Cold Steel 1–4 & Reverie)**: All 806 entries with precise unlock timeframes and NPC dialogue conditions.
+9. **Appendix 5/4: NG+ Carryover & Ultimate Superbosses**: Carryover guide and high-difficulty superboss tactics.
 
 ---
 
